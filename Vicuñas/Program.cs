@@ -1,7 +1,15 @@
+
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.EntityFrameworkCore;
+using Micontexto.Context;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<ContextoV>(options => {
+    options.UseSqlServer(builder.Configuration.GetConnectionString("CadenaConexion"));
+});
 
 var app = builder.Build();
 
