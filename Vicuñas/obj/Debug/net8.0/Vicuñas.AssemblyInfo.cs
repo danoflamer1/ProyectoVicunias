@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Vicuñas")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0c7949d3b6f49d27eee2b0a7f06dd43e378298dd")]
 [assembly: System.Reflection.AssemblyProductAttribute("Vicuñas")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Vicuñas")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
