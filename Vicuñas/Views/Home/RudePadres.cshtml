@@ -1,0 +1,783 @@
+﻿
+<h1>RudePadres</h1>
+
+@{
+    ViewData["Title"] = "RudePadres";
+}
+
+<h1>RudePadres</h1>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devicewidth, initial-scale=1.0" />
+    <title>Formulario RUDE TUTOR- Inscripción Estudiantil</title>
+</head>
+<style>
+    body {
+        background-color: #f5f7f9;
+        color: #333;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .header {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        color: white;
+        padding: 20px 0;
+        border-radius: 0 0 10px 10px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .form-section {
+        background-color: white;
+        border-radius: 8px;
+        padding: 25px;
+        margin-bottom: 25px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        border-left: 5px solid #0d6efd;
+    }
+
+    .section-title {
+        color: #0a58ca;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 10px;
+        margin-bottom: 20px;
+        font-weight: 600;
+    }
+
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+        border: none;
+        padding: 10px 20px;
+        font-weight: 500;
+    }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+        }
+
+    .required-field::after {
+        content: " *";
+        color: #dc3545;
+    }
+
+    .form-control:focus {
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+    }
+
+    .container {
+        padding-bottom: 50px;
+    }
+
+    .form-section:last-child {
+        margin-bottom: 40px;
+    }
+</style>
+<body>
+    <div>
+        <div class="header text-center">
+            <h1><i class="fas fa-graduation-cap me-2"></i>Formulario RUDE - PADRES</h1>
+            <p class="lead">Sistema de Inscripción Estudiantil - Bolivia</p>
+        </div>
+        <form id="rudeForm">
+
+            <div class="form-section">
+                <h3 class="section-title">4.8 CARACTERISTICAS PARTICULARES DEL LA O EL ESTUDIANTE</h3>
+                <h5 class="mt-4 mb-3 text-primary">4.8.1 Tipos y Grados de Discapacidad</h5>
+                <div class="row mb-3">
+
+                    <div class="col-md-4">
+                        <h5 class="text-primary">AUDITIVA</h5>
+                        <select class="form-select" name="audicion" id="audicion" required>
+                            <option value="">Seleccione...</option>
+                            <option value="aLeve">Pérdida auditiva leve</option>
+                            <option value="aGrave">Pérdida auditiva grave</option>
+                            <option value="aMuyLev">Pérdida auditiva muy grave</option>
+                            <option value="aMult">Múltiple</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-primary">VISUAL</h5>
+                        <select class="form-select" name="visual" id="visual" required>
+                            <option value="">Seleccione...</option>
+                            <option value="vTotal">Ceguera total</option>
+                            <option value="vBaja">Baja Visión</option>
+                            <option value="vMult">Múltiple</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-primary">INTELECTUAL</h5>
+                        <select class="form-select" name="intelectual" id="intelectual" required>
+                            <option value="">Seleccione...</option>
+                            <option value="iLeve">Leve</option>
+                            <option value="iMode">Moderado</option>
+                            <option value="iGrave">Grave</option>
+                            <option value="iMuygrave">Muy Grave</option>
+                            <option value="iMult">Múltiple</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <h5 class="text-primary">FISICO/MOTORA</h5>
+                        <select class="form-select" name="fisicoMotora" id="fisicoMotora" required>
+                            <option value="">Seleccione...</option>
+                            <option value="fLeve">Leve</option>
+                            <option value="fMode">Moderado</option>
+                            <option value="fGrave">Grave</option>
+                            <option value="fMuygrave">Muy Grave</option>
+                            <option value="fMult">Múltiple</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-primary">PSIQUICA-MENTAL</h5>
+                        <select class="form-select" name="psiquicaMental" id="psiquicaMental" required>
+                            <option value="">Seleccione...</option>
+                            <option value="pLeve">Leve</option>
+                            <option value="pMode">Moderado</option>
+                            <option value="pGrave">Grave</option>
+                            <option value="pMuygrave">Muy Grave</option>
+                            <option value="pMult">Múltiple</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="text-primary">TRANSTORNO DEL ESPECTRO AUTISTA</h5>
+                        <select class="form-select" name="psiquicaMental" id="psiquicaMental" required>
+                            <option value="">Seleccione...</option>
+                            <option value="pLeve">Leve</option>
+                            <option value="pMode">Moderado</option>
+                            <option value="pGrave">Grave</option>
+                            <option value="pMuygrave">Muy Grave</option>
+                            <option value="pMult">Múltiple</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">4.8.1.1 LA DISCAPACIDAD DE LA O EL ESTUDIANTE ES: </h5>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="OrigenDiscapacidad" id="oNacimiento" value="nac">
+                            <label class="form-check-label" for="oNacimiento">De nacimiento</label>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="OrigenDiscapacidad" id="oAdquirida" value="Adq">
+                            <label class="form-check-label" for="oAdquirida">Adquirida</label>
+                        </div>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">
+                    4.8.2 ESTUDIANTES CON DIFICULTADES EN EL APRENDIZAJE (Marcar únicamente si la o el estudiante no presenta
+                    discapacidad y proviene del Subsistema de Educación Regular)
+                </h5>
+                <label for="siPresentaDiscapacidad" class="form-label">
+                    ¿Qué Programa de apoyo, orientado a procesos cognitivos,
+                    recibe la o el estudiante en el Centro de Educación Especial?
+                </label>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="apoyos" id="lecturaEscritura" value="lectura">
+                            <label class="form-check-label" for="lecturaEscritura">Lectura y Escritura</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="apoyos" id="razonamiento" value="razonamiento">
+                            <label class="form-check-label" for="razonamiento">Razonamiento verbal y lógico</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="apoyos" id="calculo" value="calculo">
+                            <label class="form-check-label" for="calculo">Cálculo Matemático</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="apoyos" id="apoyo" value="apoyo">
+                            <label class="form-check-label" for="apoyo">Apoyo Técnico Pedagógico</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">V. DATOS DEL PADRE, MADRE O TUTOR (A) DE LA O EL ESTUDIANTE</h3>
+                <h5 class="mt-4 mb-3 text-primary">(♦) 5.1 LA O EL ESTUDIANTE VIVE HABITUALMENTE CON:</h5>
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <select id="conQuienVive" class="form-select" required>
+                            <option value="">Seleccione...</option>
+                            <option value="padreymadre">Padre y Madre</option>
+                            <option value="solopadre">Solo Padre</option>
+                            <option value="solomadre">Solo Madre</option>
+                            <option value="tutor">Tutor(a)</option>
+                            <option value="solo">Solo(a)</option>
+                            <option value="tutelaextra">En tutela extraordinaria</option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" class="form-control mt-2" id="centroAcogida" name="centroAcogida"
+                               placeholder="Nombre del centro de acogida" disabled>
+                    </div>
+                </div>
+            </div>
+
+            <div id="datosPadre" class="form-section mt-4" style="display: none;">
+                <h3 class="section-title">5.2 DATOS DEL PADRE</h3>
+                <h5 class="mt-4 mb-3 text-primary">(**)Cédula de Identidad o DNI</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="ciNumeroP" class="form-label required-field">Número</label>
+                        <input type="text" class="form-control" id="ciNumeroP" name="ciNumeroP">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciComplementoP" class="form-label">Complemento</label>
+                        <input type="text" class="form-control" id="ciComplementoP" name="ciComplementoP">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciExpedidoP" class="form-label">Expedido</label>
+                        <select class="form-select" id="ciExpedidoP" name="ciExpedidoP">
+                            <option value="">Seleccione...</option>
+                            <option value="LP">La Paz</option>
+                            <option value="CB">Cochabamba</option>
+                            <option value="SC">Santa Cruz</option>
+                            <option value="OR">Oruro</option>
+                            <option value="PT">Potosí</option>
+                            <option value="CH">Chuquisaca</option>
+                            <option value="TJ">Tarija</option>
+                            <option value="BN">Beni</option>
+                            <option value="PD">Pando</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">Apellidos y Nombres del Padre</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="apellidoPaternoP" class="form-label required-field">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apellidoPaternoP" name="apellidoPaternoP" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidoMaternoP" class="form-label required-field">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apellidoMaternoP" name="apellidoMaternoP" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nombresP" class="form-label required-field">Nombre(s)</label>
+                        <input type="text" class="form-control" id="nombresP" name="nombresP" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="mt-4 mb-3 text-primary">Idioma que habla frecuentemente</h5>
+                        <label for="idiomaFrecuenteP" class="form-label required-field"></label>
+                        <input type="text" class="form-control" id="idiomaFrecuenteP" name="idiomaFrecuenteP" required>
+
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mt-4 mb-3 text-primary">Ocupación laboral actual</h5>
+                        <label for="ocupacioLabP" class="form-label required-field"></label>
+                        <input type="text" class="form-control" id="ocupacioLabP" name="ocupacioLabP" required>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mt-4 mb-3 text-primary">Mayor grado de instrucción alcanzado</h5>
+                        <label for="gradoInstrucP" class="form-label required-field"></label>
+                        <input type="text" class="form-control" id="gradoInstrucP" name="gradoInstrucP" required>
+                    </div>
+                </div>
+                <h5 class="mt-4 mb-3 text-primary">Fecha de Nacimiento</h5>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="diaNacimientoP" class="form-label required-field">Día</label>
+                        <input type="number" class="form-control" id="diaNacimientoP" name="diaNacimientoP" min="1" max="31" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="mesNacimientoP" class="form-label required-field">Mes</label>
+                        <select class="form-select" id="mesNacimientoP" name="mesNacimientoP" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="anioNacimientoP" class="form-label required-field">Año</label>
+                        <input type="number" class="form-control" id="anioNacimientoP" name="anioNacimientoP" min="1900" max="2030" required>
+                    </div>
+                </div>
+            </div>
+
+            <div id="datosMadre" class="form-section mt-4" style="display: none;">
+                <h3 class="section-title">5.3 DATOS DE LA MADRE</h3>
+                <h5 class="mt-4 mb-3 text-primary">(**)Cédula de Identidad o DNI</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="ciNumeroM" class="form-label required-field">Número</label>
+                        <input type="text" class="form-control" id="ciNumeroM" name="ciNumeroM">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciComplementoM" class="form-label">Complemento</label>
+                        <input type="text" class="form-control" id="ciComplementoM" name="ciComplementoM">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciExpedidoM" class="form-label">Expedido</label>
+                        <select class="form-select" id="ciExpedidoM" name="ciExpedidoM">
+                            <option value="">Seleccione...</option>
+                            <option value="LP">La Paz</option>
+                            <option value="CB">Cochabamba</option>
+                            <option value="SC">Santa Cruz</option>
+                            <option value="OR">Oruro</option>
+                            <option value="PT">Potosí</option>
+                            <option value="CH">Chuquisaca</option>
+                            <option value="TJ">Tarija</option>
+                            <option value="BN">Beni</option>
+                            <option value="PD">Pando</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">Apellidos y Nombres de la Madre</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="apellidoPaternoM" class="form-label required-field">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apellidoPaternoM" name="apellidoPaternoM" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidoMaternoM" class="form-label required-field">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apellidoMaternoM" name="apellidoMaternoM" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nombresM" class="form-label required-field">Nombre(s)</label>
+                        <input type="text" class="form-control" id="nombresM" name="nombresM" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <h5 class="mt-4 mb-3 text-primary">Idioma que habla frecuentemente</h5>
+                        <label for="idiomaFrecuenteM" class="form-label required-field"></label>
+                        <input type="text" class="form-control" id="idiomaFrecuenteM" name="idiomaFrecuenteM" required>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mt-4 mb-3 text-primary">Ocupación laboral actual</h5>
+                        <label for="ocupacioLabM" class="form-label required-field"></label>
+                        <input type="text" class="form-control" id="ocupacioLabM" name="ocupacioLabM" required>
+                    </div>
+                    <div class="col-md-4">
+                        <h5 class="mt-4 mb-3 text-primary">Mayor grado de instrucción alcanzado</h5>
+                        <label for="gradoInstrucM" class="form-label required-field"></label>
+                        <input type="text" class="form-control" id="gradoInstrucM" name="gradoInstrucM" required>
+                    </div>
+                </div>
+                <h5 class="mt-4 mb-3 text-primary">Fecha de Nacimiento</h5>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="diaNacimientoM" class="form-label required-field">Día</label>
+                        <input type="number" class="form-control" id="diaNacimientoM" name="diaNacimientoM" min="1" max="31" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="mesNacimientoM" class="form-label required-field">Mes</label>
+                        <select class="form-select" id="mesNacimientoM" name="mesNacimientoM" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="anioNacimientoM" class="form-label required-field">Año</label>
+                        <input type="number" class="form-control" id="anioNacimientoM" name="anioNacimientoM" min="1900" max="2030" required>
+                    </div>
+                </div>
+            </div>
+
+            <div id="datosTutor" class="form-section mt-4" style="display: none;">
+                <h3 class="section-title">5.4 DATOS DEL TUTOR(A)</h3>
+                <h5 class="mt-4 mb-3 text-primary">(**)Cédula de Identidad o DNI</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="ciNumeroT" class="form-label required-field">Número</label>
+                        <input type="text" class="form-control" id="ciNumeroT" name="ciNumeroT">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciComplementoT" class="form-label">Complemento</label>
+                        <input type="text" class="form-control" id="ciComplementoT" name="ciComplementoT">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciExpedidoT" class="form-label">Expedido</label>
+                        <select class="form-select" id="ciExpedidoT" name="ciExpedidoT">
+                            <option value="">Seleccione...</option>
+                            <option value="LP">La Paz</option>
+                            <option value="CB">Cochabamba</option>
+                            <option value="SC">Santa Cruz</option>
+                            <option value="OR">Oruro</option>
+                            <option value="PT">Potosí</option>
+                            <option value="CH">Chuquisaca</option>
+                            <option value="TJ">Tarija</option>
+                            <option value="BN">Beni</option>
+                            <option value="PD">Pando</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">Apellidos y Nombres del tutor(a)</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="apellidoPaternoT" class="form-label required-field">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apellidoPaternoT" name="apellidoPaternoT" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidoMaternoT" class="form-label required-field">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apellidoMaternoT" name="apellidoMaternoT" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nombresT" class="form-label required-field">Nombre(s)</label>
+                        <input type="text" class="form-control" id="nombresT" name="nombresT" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mt-4 mb-3 text-primary">Idioma que habla frecuentemente</h5>
+                        <input type="text" class="form-control" id="idiomaFrecuenteT" name="idiomaFrecuenteT" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5 class="mt-4 mb-3 text-primary">Ocupación laboral actual</h5>
+                        <input type="text" class="form-control" id="ocupacioLabT" name="ocupacioLabT" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mt-4 mb-3 text-primary">Mayor grado de instrucción alcanzado</h5>
+                        <input type="text" class="form-control" id="gradoInstrucT" name="gradoInstrucT" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5 class="mt-4 mb-3 text-primary">¿Cuál es su parentesco con el estudiante?</h5>
+                        <input type="text" class="form-control" id="parentescoT" name="parentescoT" required>
+                    </div>
+                </div>
+
+
+                <h5 class="mt-4 mb-3 text-primary">Fecha de Nacimiento</h5>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="diaNacimientoT" class="form-label required-field">Día</label>
+                        <input type="number" class="form-control" id="diaNacimientoT" name="diaNacimientoT" min="1" max="31" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="mesNacimientoT" class="form-label required-field">Mes</label>
+                        <select class="form-select" id="mesNacimientoT" name="mesNacimientoT" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="anioNacimientoT" class="form-label required-field">Año</label>
+                        <input type="number" class="form-control" id="anioNacimientoT" name="anioNacimientoT" min="1900" max="2030" required>
+                    </div>
+                </div>
+            </div>
+
+            <div id="datosTutorExtra" class="form-section mt-4" style="display: none;">
+                <h3 class="section-title">5.5 DATOS DEL TUTOR(A) EXTRAORDINARIO(A)</h3>
+                <h5 class="mt-4 mb-3 text-primary">(**)Cédula de Identidad o DNI</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="ciNumeroTE" class="form-label required-field">Número</label>
+                        <input type="text" class="form-control" id="ciNumeroTE" name="ciNumeroTE">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciComplementoTE" class="form-label">Complemento</label>
+                        <input type="text" class="form-control" id="ciComplementoTE" name="ciComplementoTE">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="ciExpedidoTE" class="form-label">Expedido</label>
+                        <select class="form-select" id="ciExpedidoTE" name="ciExpedidoTE">
+                            <option value="">Seleccione...</option>
+                            <option value="LP">La Paz</option>
+                            <option value="CB">Cochabamba</option>
+                            <option value="SC">Santa Cruz</option>
+                            <option value="OR">Oruro</option>
+                            <option value="PT">Potosí</option>
+                            <option value="CH">Chuquisaca</option>
+                            <option value="TJ">Tarija</option>
+                            <option value="BN">Beni</option>
+                            <option value="PD">Pando</option>
+                        </select>
+                    </div>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">Apellidos y Nombres del Tutor(a) Extraordinario(a)</h5>
+                <div class="row mb-3">
+                    <div class="col-md-4">
+                        <label for="apellidoPaternoTE" class="form-label required-field">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apellidoPaternoTE" name="apellidoPaternoTE" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidoMaternoTE" class="form-label required-field">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apellidoMaternoTE" name="apellidoMaternoTE" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nombresTE" class="form-label required-field">Nombre(s)</label>
+                        <input type="text" class="form-control" id="nombresTE" name="nombresTE" required>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <h5 class="mt-4 mb-3 text-primary">Cargo actual</h5>
+                        <input type="text" class="form-control" id="cargoTE" name="cargoTE" required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <h5 class="mt-4 mb-3 text-primary">Nombre de la Institución</h5>
+                        <input type="text" class="form-control" id="nomInstTE" name="nomInstTE" required>
+                    </div>
+                </div>
+
+
+
+                <h5 class="mt-4 mb-3 text-primary">Fecha de Registro</h5>
+                <div class="row mb-3">
+                    <div class="col-md-2">
+                        <label for="diaRegistroTE" class="form-label required-field">Día</label>
+                        <input type="number" class="form-control" id="diaRegistroTE" name="diaRegistroTE" min="1" max="31" required>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="mesRegistroTE" class="form-label required-field">Mes</label>
+                        <select class="form-select" id="mesRegistroTE" name="mesRegistroTE" required>
+                            <option value="">Seleccione...</option>
+                            <option value="1">Enero</option>
+                            <option value="2">Febrero</option>
+                            <option value="3">Marzo</option>
+                            <option value="4">Abril</option>
+                            <option value="5">Mayo</option>
+                            <option value="6">Junio</option>
+                            <option value="7">Julio</option>
+                            <option value="8">Agosto</option>
+                            <option value="9">Septiembre</option>
+                            <option value="10">Octubre</option>
+                            <option value="11">Noviembre</option>
+                            <option value="12">Diciembre</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="anioRegistroTE" class="form-label required-field">Año</label>
+                        <input type="number" class="form-control" id="anioRegistroTE" name="anioRegistroTE" min="1900" max="2030" required>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+            <div class="d-flex justify-content-between mb-5">
+                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="RudeEstudiantes">
+                    <i class="fas fa-times me-2"></i>Anterior
+                </a>
+                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">
+                    <i class="fas fa-check me-2"></i>Registrar
+                </a>
+            </div>
+
+        </form>
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        //con quien vive (ingreso de texto)
+        const selectVive = document.getElementById("conQuienVive");
+        const inputCentro = document.getElementById("centroAcogida");
+        selectVive.addEventListener("change", function() {
+            if (this.value === "tutelaextra") {
+                inputCentro.disabled = false;
+                inputCentro.focus();
+            } else {
+                inputCentro.disabled = true;
+                inputCentro.value = "";
+            }
+        });
+
+        //Habilitar fomulario de padre o tutor
+        document.addEventListener("DOMContentLoaded", function () {
+            const selectConQuienVive = document.getElementById("conQuienVive");
+            const datosPadre = document.getElementById("datosPadre");
+            const datosMadre = document.getElementById("datosMadre");
+            const datosTutor = document.getElementById("datosTutor");
+            const datosTutorExtra = document.getElementById("datosTutorExtra");
+
+            function ocultarTodo() {
+                datosPadre.style.display = "none";
+                datosMadre.style.display = "none";
+                datosTutor.style.display = "none";
+                datosTutorExtra.style.display = "none";
+            }
+
+            selectConQuienVive.addEventListener("change", function () {
+                ocultarTodo();
+
+                switch (this.value) {
+                    case "padreymadre":
+                        datosPadre.style.display = "block";
+                        datosMadre.style.display = "block";
+                        break;
+                    case "solopadre":
+                        datosPadre.style.display = "block";
+                        break;
+                    case "solomadre":
+                        datosMadre.style.display = "block";
+                        break;
+                    case "tutor":
+                        datosTutor.style.display = "block";
+                        break;
+                    case "tutelaextra":
+                        datosTutorExtra.style.display = "block";
+                        break;
+                    case "solo":
+                        break;
+                }
+            });
+
+            ocultarTodo();
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // Generar código RUDE automáticamente (simulación)
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simular generación de código RUDE
+            const randomCode = 'RUDE-' + Math.floor(100000 + Math.random() * 900000);
+            document.getElementById('codigoRUDE').value = randomCode;
+
+            document.getElementById('rudeForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Formulario enviado con éxito. En una implementación real, los datos se enviarían al servidor.');
+            });
+        });
+                // JavaScript para mostrar/ocultar campos según selecciones
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mostrar/ocultar meses de trabajo
+            const trabajoSi = document.getElementById('trabajoSi');
+            const trabajoNo = document.getElementById('trabajoNo');
+            const trabajoNsNr = document.getElementById('trabajoNsNr');
+            const mesesTrabajoContainer = document.getElementById('mesesTrabajoContainer');
+            const actividadTrabajoContainer = document.getElementById('actividadTrabajoContainer');
+            const turnosTrabajoContainer = document.getElementById('turnosTrabajoContainer');
+            const frecuenciaTrabajoContainer = document.getElementById('frecuenciaTrabajoContainer');
+            const pagoTrabajoContainer = document.getElementById('pagoTrabajoContainer');
+
+            function toggleTrabajoCampos() {
+                if (trabajoSi.checked) {
+                    mesesTrabajoContainer.style.display = 'block';
+                    actividadTrabajoContainer.style.display = 'block';
+                    turnosTrabajoContainer.style.display = 'block';
+                    frecuenciaTrabajoContainer.style.display = 'block';
+                    pagoTrabajoContainer.style.display = 'block';
+                } else {
+                    mesesTrabajoContainer.style.display = 'none';
+                    actividadTrabajoContainer.style.display = 'none';
+                    turnosTrabajoContainer.style.display = 'none';
+                    frecuenciaTrabajoContainer.style.display = 'none';
+                    pagoTrabajoContainer.style.display = 'none';
+                }
+            }
+
+            trabajoSi.addEventListener('change', toggleTrabajoCampos);
+            trabajoNo.addEventListener('change', toggleTrabajoCampos);
+            trabajoNsNr.addEventListener('change', toggleTrabajoCampos);
+
+            // Mostrar/ocultar tipo de pago
+            const pagoSi = document.getElementById('pagoSi');
+            const tipoPagoContainer = document.getElementById('tipoPagoContainer');
+
+            pagoSi.addEventListener('change', function() {
+                tipoPagoContainer.style.display = this.checked ? 'block' : 'none';
+            });
+
+                    // Mostrar/ocultar razones de abandono
+        const abandonoSi = document.getElementById('abandonoSi');
+        const abandonoNo = document.getElementById('abandonoNo');
+        const razonesAbandonoContainer = document.getElementById('razonesAbandonoContainer');
+
+        function toggleAbandonoCampos() {
+            if (abandonoSi.checked) {
+                razonesAbandonoContainer.style.display = 'block';
+            } else {
+                razonesAbandonoContainer.style.display = 'none';
+                // Limpiar todos los campos de razones cuando se selecciona "No"
+                document.querySelectorAll('#razonesAbandonoContainer input[type="checkbox"]').forEach(cb => {
+                    cb.checked = false;
+                });
+                // Deshabilitar y limpiar campo "Otro especificar"
+                const razonOtroEspecificar = document.getElementById('razonOtroEspecificar');
+                if (razonOtroEspecificar) {
+                    razonOtroEspecificar.disabled = true;
+                    razonOtroEspecificar.value = '';
+                }
+            }
+        }
+
+        // Agregar event listeners a ambos botones (Sí y No)
+        abandonoSi.addEventListener('change', toggleAbandonoCampos);
+        abandonoNo.addEventListener('change', toggleAbandonoCampos);
+
+        // Ejecutar al cargar para establecer el estado inicial
+        toggleAbandonoCampos();
+        });
+    </script>
+</body>
+</html>
