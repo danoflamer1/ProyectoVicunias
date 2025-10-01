@@ -54,7 +54,7 @@ namespace Vicuñas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("CI,Apellido_P,Apellido_M,Nombres,Rol,Sueldo")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("ID,CI,Ci_Complemento,Apellido_P,Apellido_M,Nombres,Rol,Sueldo,Contraseña")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {

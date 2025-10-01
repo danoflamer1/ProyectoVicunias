@@ -1,38 +1,38 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\",
+  "WorkspaceRootPath": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\views\\usuarios\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\delete.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\views\\usuarios\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\views\\usuarios\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\c#\\vicu\u00F1as\\vicu\u00F1as\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\controllers\\usuarioscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\views\\usuarios\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|c:\\users\\daniel\\desktop\\proyfunciona\\proyectovicunias\\vicu\u00F1as\\models\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{476DFAFD-226C-40C6-A7F0-420155235377}|Vicu\u00F1as\\Vicu\u00F1as.csproj|solutionrelative:vicu\u00F1as\\models\\estudiante.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,21 +42,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Models\\Usuario.cs",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Models\\Usuario.cs*",
-              "RelativeToolTip": "Vicu\u00F1as\\Models\\Usuario.cs*",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T18:02:02.69Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
@@ -79,93 +66,106 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Details.cshtml",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Details.cshtml",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Details.cshtml",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Details.cshtml",
-              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Details.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAAC4AAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T17:58:52.825Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml*",
-              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml*",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAACkAAAARAAAAAAAAAA==",
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml*",
+              "RelativeToolTip": "Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml*",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAACYAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T17:55:22.876Z",
+              "WhenOpened": "2025-10-01T21:25:02.024Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Vicu\u00F1as\\Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAB7AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T17:45:45.52Z",
+              "DocumentIndex": 4,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Program.cs",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Program.cs",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Program.cs",
+              "RelativeToolTip": "Vicu\u00F1as\\Program.cs",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAiwCAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T21:19:31.725Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "Edit.cshtml",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Edit.cshtml",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Edit.cshtml",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Edit.cshtml",
-              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Edit.cshtml",
-              "ViewState": "AgIAABIAAAAAAAAAAAAAACkAAAAzAAAAAAAAAA==",
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml",
+              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T17:45:21.449Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Delete.cshtml",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Delete.cshtml",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Delete.cshtml",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Delete.cshtml",
-              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Delete.cshtml",
-              "ViewState": "AgIAABgAAAAAAAAAAAAAADAAAAAkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T17:45:20.177Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Create.cshtml",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
-              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
-              "ViewState": "AgIAABMAAAAAAAAAAAAowDMAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-01T17:45:18.953Z",
+              "WhenOpened": "2025-10-01T20:59:28.361Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 7,
-              "Title": "UsuariosController.cs",
-              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Controllers\\UsuariosController.cs",
-              "RelativeDocumentMoniker": "Vicu\u00F1as\\Controllers\\UsuariosController.cs",
-              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicu\u00F1as\\Vicu\u00F1as\\Controllers\\UsuariosController.cs",
-              "RelativeToolTip": "Vicu\u00F1as\\Controllers\\UsuariosController.cs",
-              "ViewState": "AgIAAG4AAAAAAAAAAAAuwBYAAAAAAAAAAAAAAA==",
+              "Title": "Estudiante.cs",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Models\\Estudiante.cs",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Models\\Estudiante.cs",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Models\\Estudiante.cs",
+              "RelativeToolTip": "Vicu\u00F1as\\Models\\Estudiante.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAgAAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-01T17:42:33.337Z",
+              "WhenOpened": "2025-10-01T20:49:19.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Create.cshtml",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
+              "RelativeToolTip": "Vicu\u00F1as\\Views\\Usuarios\\Create.cshtml",
+              "ViewState": "AgIAACQAAAAAAAAAAAAtwDsAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-01T20:39:35.496Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UsuariosController.cs",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Controllers\\UsuariosController.cs",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Controllers\\UsuariosController.cs",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Controllers\\UsuariosController.cs",
+              "RelativeToolTip": "Vicu\u00F1as\\Controllers\\UsuariosController.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAwwDkAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T20:39:44.366Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Login\\Index.cshtml",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Views\\Login\\Index.cshtml",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Views\\Login\\Index.cshtml*",
+              "RelativeToolTip": "Vicu\u00F1as\\Views\\Login\\Index.cshtml*",
+              "ViewState": "AgIAAG4AAAAAAAAAAAAYwIIAAABmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-01T20:27:14.044Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LoginController.cs",
+              "DocumentMoniker": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Controllers\\LoginController.cs",
+              "RelativeDocumentMoniker": "Vicu\u00F1as\\Controllers\\LoginController.cs",
+              "ToolTip": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicu\u00F1as\\Controllers\\LoginController.cs",
+              "RelativeToolTip": "Vicu\u00F1as\\Controllers\\LoginController.cs",
+              "ViewState": "AgIAAA0AAAAAAAAAAADwvxQAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-01T20:26:59.397Z",
               "EditorCaption": ""
             }
           ]

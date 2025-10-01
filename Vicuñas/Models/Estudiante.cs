@@ -6,6 +6,7 @@ namespace Vicuñas.Models
     public class Estudiante
     {
         [Key]
+        public int ID { get; set; }
         public int CI { get; set; }
         public string? Ci_Complemento { get; set; }
         [Required]

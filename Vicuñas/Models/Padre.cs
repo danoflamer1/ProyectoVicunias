@@ -6,6 +6,7 @@ namespace Vicuñas.Models
     public class Padre
     {
         [Key]
+        public int ID { get; set; }
         public int CI { get; set; }
         public string? Ci_Complemento { get; set; }
         [Required]
@@ -24,6 +25,7 @@ namespace Vicuñas.Models
         public string? Laburo { get; set; }
         [Required, MinLength(3), MaxLength(50)]
         public string? Educacion { get; set; }
+        public string? Contraseña { get; set; }
         [Required]
         [Column(TypeName = "date")]
         public DateTime Fecha_Nac { get; set; }

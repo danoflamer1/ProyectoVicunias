@@ -8091,11 +8091,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicuñas\\Vicuñas\\Vicuñas.csproj",
+      "projectUniqueName": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicuñas\\Vicuñas.csproj",
       "projectName": "Vicuñas",
-      "projectPath": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicuñas\\Vicuñas\\Vicuñas.csproj",
+      "projectPath": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicuñas\\Vicuñas.csproj",
       "packagesPath": "C:\\Users\\DANIEL\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicuñas\\Vicuñas\\obj\\",
+      "outputPath": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicuñas\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

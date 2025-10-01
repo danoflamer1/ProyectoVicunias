@@ -4,6 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
+
 <h1>Lista de usuarios</h1>
 
 <p>
@@ -12,6 +13,9 @@
 <table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CI)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Nombres)
             </th>
@@ -34,8 +38,19 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.Nombres)
-            </td>               <td>
+                    @if (!string.IsNullOrEmpty(item.Ci_Complemento))
+                    {
+                        <text>@Html.DisplayFor(model => item.CI)-@Html.DisplayFor(model => item.Ci_Complemento)</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => item.CI)
+                    }
+            </td>  
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Apellido_P)
             </td>
             <td>

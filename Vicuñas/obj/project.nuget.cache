@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eeNQSpNhfdI=",
+  "dgSpecHash": "DAX4LxE1Dzw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\DANIEL\\Desktop\\C#\\Vicuñas\\Vicuñas\\Vicuñas.csproj",
+  "projectFilePath": "C:\\Users\\DANIEL\\Desktop\\Proyfunciona\\ProyectoVicunias\\Vicuñas\\Vicuñas.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\DANIEL\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\DANIEL\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

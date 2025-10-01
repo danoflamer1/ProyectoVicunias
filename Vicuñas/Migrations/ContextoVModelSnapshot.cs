@@ -24,26 +24,26 @@ namespace Vicuñas.Migrations
 
             modelBuilder.Entity("EstudiantePadre", b =>
                 {
-                    b.Property<int>("EstudiantesCI")
+                    b.Property<int>("EstudiantesID")
                         .HasColumnType("int");
 
-                    b.Property<int>("TutoresCI")
+                    b.Property<int>("TutoresID")
                         .HasColumnType("int");
 
-                    b.HasKey("EstudiantesCI", "TutoresCI");
+                    b.HasKey("EstudiantesID", "TutoresID");
 
-                    b.HasIndex("TutoresCI");
+                    b.HasIndex("TutoresID");
 
                     b.ToTable("EstudiantePadre");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Estudiante", b =>
                 {
-                    b.Property<int>("CI")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CI"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Apellido_M")
                         .IsRequired()
@@ -54,6 +54,9 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CI")
+                        .HasColumnType("int");
 
                     b.Property<int>("Certificado_Folio")
                         .HasColumnType("int");
@@ -166,7 +169,7 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CI");
+                    b.HasKey("ID");
 
                     b.HasIndex("ParaleloId");
 
@@ -222,6 +225,9 @@ namespace Vicuñas.Migrations
                         .HasColumnType("bit");
 
                     b.Property<int?>("EstudianteCi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EstudianteID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
@@ -305,20 +311,26 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("TutorCi")
                         .HasColumnType("int");
 
+                    b.Property<int?>("TutorID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudianteCi");
+                    b.HasIndex("EstudianteID");
 
                     b.HasIndex("ParaleloId")
                         .IsUnique()
                         .HasFilter("[ParaleloId] IS NOT NULL");
 
-                    b.HasIndex("TutorCi");
+                    b.HasIndex("TutorID");
 
-                    b.HasIndex("UsuarioCi");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Inscripciones");
                 });
@@ -338,9 +350,12 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioCi");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Materias");
                 });
@@ -359,6 +374,9 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("EstudianteCi")
                         .HasColumnType("int");
 
+                    b.Property<int?>("EstudianteID")
+                        .HasColumnType("int");
+
                     b.Property<int?>("MateriaId")
                         .HasColumnType("int");
 
@@ -368,27 +386,30 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioID")
+                        .HasColumnType("int");
+
                     b.Property<int>("Valor")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudianteCi");
+                    b.HasIndex("EstudianteID");
 
                     b.HasIndex("MateriaId");
 
-                    b.HasIndex("UsuarioCi");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Notas");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Padre", b =>
                 {
-                    b.Property<int>("CI")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CI"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Apellido_M")
                         .IsRequired()
@@ -400,11 +421,17 @@ namespace Vicuñas.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("CI")
+                        .HasColumnType("int");
+
                     b.Property<string>("Ci_Complemento")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Ci_Expedido")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contraseña")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Educacion")
@@ -434,7 +461,7 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("CI");
+                    b.HasKey("ID");
 
                     b.ToTable("Padres");
                 });
@@ -457,11 +484,14 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("GradoId");
 
-                    b.HasIndex("UsuarioCi");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Paralelos");
                 });
@@ -486,20 +516,23 @@ namespace Vicuñas.Migrations
                     b.Property<int>("UsuarioCi")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UsuarioID")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioCi");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Reportes");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Usuario", b =>
                 {
-                    b.Property<int>("CI")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CI"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Apellido_M")
                         .IsRequired()
@@ -510,6 +543,15 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<int>("CI")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ci_Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Contraseña")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")
                         .IsRequired()
@@ -522,7 +564,7 @@ namespace Vicuñas.Migrations
                     b.Property<float>("Sueldo")
                         .HasColumnType("real");
 
-                    b.HasKey("CI");
+                    b.HasKey("ID");
 
                     b.ToTable("Usuarios");
                 });
@@ -531,13 +573,13 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Estudiante", null)
                         .WithMany()
-                        .HasForeignKey("EstudiantesCI")
+                        .HasForeignKey("EstudiantesID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Vicuñas.Models.Padre", null)
                         .WithMany()
-                        .HasForeignKey("TutoresCI")
+                        .HasForeignKey("TutoresID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -555,7 +597,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Estudiante", "Estudiante")
                         .WithMany("Inscripciones")
-                        .HasForeignKey("EstudianteCi");
+                        .HasForeignKey("EstudianteID");
 
                     b.HasOne("Vicuñas.Models.Paralelo", "Paralelo")
                         .WithOne("Inscripcion")
@@ -563,11 +605,11 @@ namespace Vicuñas.Migrations
 
                     b.HasOne("Vicuñas.Models.Padre", "Tutor")
                         .WithMany("Inscripciones")
-                        .HasForeignKey("TutorCi");
+                        .HasForeignKey("TutorID");
 
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Inscripciones")
-                        .HasForeignKey("UsuarioCi");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Estudiante");
 
@@ -582,7 +624,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Materias")
-                        .HasForeignKey("UsuarioCi");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Usuario");
                 });
@@ -591,7 +633,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Estudiante", "Estudiante")
                         .WithMany("Notas")
-                        .HasForeignKey("EstudianteCi");
+                        .HasForeignKey("EstudianteID");
 
                     b.HasOne("Vicuñas.Models.Materia", "Materia")
                         .WithMany("Notas")
@@ -599,7 +641,7 @@ namespace Vicuñas.Migrations
 
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Notas")
-                        .HasForeignKey("UsuarioCi");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Estudiante");
 
@@ -616,7 +658,7 @@ namespace Vicuñas.Migrations
 
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Parallelos")
-                        .HasForeignKey("UsuarioCi");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Grado");
 
@@ -627,9 +669,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Reportes")
-                        .HasForeignKey("UsuarioCi")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Usuario");
                 });

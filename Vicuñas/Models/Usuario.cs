@@ -6,8 +6,10 @@ namespace Vicuñas.Models
     public class Usuario
     {
         [Key]
+        public int ID { get; set; }
         [Display(Name = "Cédula de Identidad")]
         public int CI { get; set; }
+        public string? Ci_Complemento { get; set; }
         [Required, MinLength(2), MaxLength(50)]
         [Display(Name = "Apellido Paterno")]
         public string? Apellido_P { get; set; }
@@ -21,6 +23,7 @@ namespace Vicuñas.Models
         public Rolenum Rol { get; set; }
         [Required]
         public float Sueldo { get; set; }
+        public string? Contraseña { get; set; }
         //relacion usuario inscripcion
         public virtual List<Inscripcion>? Inscripciones { get; set; }
         //relacion usuario paralelo
