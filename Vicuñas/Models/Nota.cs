@@ -14,13 +14,13 @@ namespace Vicuñas.Models
         [Required]
         public int Valor { get; set; }
         //relacion nota usuario
-        public int UsuarioCi { get; set; }
+        public int? UsuarioCi { get; set; }
         public virtual Usuario? Usuario { get; set; }
         //relacion nota estudiante 
-        public int EstudianteCi { get; set; }
+        public int? EstudianteCi { get; set; }
         public virtual Estudiante? Estudiante { get; set; }
         //relacion nota materia
-        public int MateriaId { get; set; }
+        public int? MateriaId { get; set; }
         public virtual Materia? Materia { get; set; }
     }
 }

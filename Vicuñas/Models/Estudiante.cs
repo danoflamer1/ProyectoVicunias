@@ -70,7 +70,7 @@ namespace Vicuñas.Models
         //relacion inscripcion estudiante
         public virtual List<Inscripcion>? Inscripciones { get; set; }
         //relacion estudiante paralelo
-        public int ParaleloId { get; set; }
+        public int? ParaleloId { get; set; }
         public virtual Paralelo? Paralelo { get; set; }
         //relacion estudiante nota 
         public virtual List<Nota>? Notas { get; set; }

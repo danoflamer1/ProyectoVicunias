@@ -22,6 +22,21 @@ namespace Vicuñas.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("EstudiantePadre", b =>
+                {
+                    b.Property<int>("EstudiantesCI")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TutoresCI")
+                        .HasColumnType("int");
+
+                    b.HasKey("EstudiantesCI", "TutoresCI");
+
+                    b.HasIndex("TutoresCI");
+
+                    b.ToTable("EstudiantePadre");
+                });
+
             modelBuilder.Entity("Vicuñas.Models.Estudiante", b =>
                 {
                     b.Property<int>("CI")
@@ -40,6 +55,33 @@ namespace Vicuñas.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<int>("Certificado_Folio")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Certificado_Libro")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Certificado_Oficialia")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Certificado_Partida")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ci_Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ci_Expedido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Departamento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Discapacidad")
                         .HasColumnType("bit");
 
@@ -47,7 +89,15 @@ namespace Vicuñas.Migrations
                         .HasColumnType("bit");
 
                     b.Property<DateTime>("Fecha_Nac")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
+
+                    b.Property<string>("Localidad")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Municipio")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombres")
                         .IsRequired()
@@ -57,6 +107,12 @@ namespace Vicuñas.Migrations
                     b.Property<int>("Nro_Celular")
                         .HasColumnType("int");
 
+                    b.Property<int>("Nro_Discapacidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nro_Documento_Extranjero")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Nro_Rude")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -64,13 +120,266 @@ namespace Vicuñas.Migrations
                     b.Property<int>("Nro_Telefono")
                         .HasColumnType("int");
 
+                    b.Property<int>("Nro_Vivienda")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Pais")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParaleloId")
+                        .HasColumnType("int");
+
+                    b.PrimitiveCollection<string>("Programa_Apoyo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Provincia")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Sexo")
                         .IsRequired()
                         .HasColumnType("nvarchar(1)");
 
+                    b.Property<string>("Tipo_Auditiva")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo_Discapacidad")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo_Documento_Extranjero")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo_Fisica")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo_Intelectual")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo_Mental")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo_Visual")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Zona")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CI");
 
+                    b.HasIndex("ParaleloId");
+
                     b.ToTable("Estudiantes");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Grado", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Grados");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Inscripcion", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Agua")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Alcantarillado")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Banio")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Basurero")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Centro_Salud")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Electricidad")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("EstadoAbandono")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Estado_Laburo")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("EstudianteCi")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("date");
+
+                    b.Property<int>("Frecuencia_Internet")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Frecuencia_Laburo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Frecuencia_Salud")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Idioma_1")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Idioma_2")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Idioma_3")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Idioma_4")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Idiomas")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Internet")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Laburo_Otro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Medio_Transporte")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Medio_Transporte_Otro")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Mes")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Motivo")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MovilidadOtra")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Otro_Motivo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Pago")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("ParaleloId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Seguro_Salud")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("Tiempo_Transporte")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo_Laburo")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo_Medicacion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo_Pago")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Tipo_Vivienda")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Turno")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TutorCi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EstudianteCi");
+
+                    b.HasIndex("ParaleloId")
+                        .IsUnique()
+                        .HasFilter("[ParaleloId] IS NOT NULL");
+
+                    b.HasIndex("TutorCi");
+
+                    b.HasIndex("UsuarioCi");
+
+                    b.ToTable("Inscripciones");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Materia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioCi");
+
+                    b.ToTable("Materias");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Nota", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Anio")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EstudianteCi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("MateriaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Trimestre")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Valor")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EstudianteCi");
+
+                    b.HasIndex("MateriaId");
+
+                    b.HasIndex("UsuarioCi");
+
+                    b.ToTable("Notas");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Padre", b =>
@@ -91,16 +400,20 @@ namespace Vicuñas.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Ci_Complemento")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Ci_Expedido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Educacion")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<bool>("Extranjero")
-                        .HasColumnType("bit");
-
                     b.Property<DateTime>("Fecha_Nac")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("date");
 
                     b.Property<string>("Idioma1")
                         .IsRequired()
@@ -117,9 +430,67 @@ namespace Vicuñas.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
+                    b.Property<string>("Tipo_Tutor")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("CI");
 
                     b.ToTable("Padres");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Paralelo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("GradoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GradoId");
+
+                    b.HasIndex("UsuarioCi");
+
+                    b.ToTable("Paralelos");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Reporte", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("FechaGeneracion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NombreArchivo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tipo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioCi");
+
+                    b.ToTable("Reportes");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Usuario", b =>
@@ -148,9 +519,161 @@ namespace Vicuñas.Migrations
                     b.Property<int>("Rol")
                         .HasColumnType("int");
 
+                    b.Property<float>("Sueldo")
+                        .HasColumnType("real");
+
                     b.HasKey("CI");
 
                     b.ToTable("Usuarios");
+                });
+
+            modelBuilder.Entity("EstudiantePadre", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Estudiante", null)
+                        .WithMany()
+                        .HasForeignKey("EstudiantesCI")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Vicuñas.Models.Padre", null)
+                        .WithMany()
+                        .HasForeignKey("TutoresCI")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Estudiante", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Paralelo", "Paralelo")
+                        .WithMany("Estudiantes")
+                        .HasForeignKey("ParaleloId");
+
+                    b.Navigation("Paralelo");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Inscripcion", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Estudiante", "Estudiante")
+                        .WithMany("Inscripciones")
+                        .HasForeignKey("EstudianteCi");
+
+                    b.HasOne("Vicuñas.Models.Paralelo", "Paralelo")
+                        .WithOne("Inscripcion")
+                        .HasForeignKey("Vicuñas.Models.Inscripcion", "ParaleloId");
+
+                    b.HasOne("Vicuñas.Models.Padre", "Tutor")
+                        .WithMany("Inscripciones")
+                        .HasForeignKey("TutorCi");
+
+                    b.HasOne("Vicuñas.Models.Usuario", "Usuario")
+                        .WithMany("Inscripciones")
+                        .HasForeignKey("UsuarioCi");
+
+                    b.Navigation("Estudiante");
+
+                    b.Navigation("Paralelo");
+
+                    b.Navigation("Tutor");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Materia", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Usuario", "Usuario")
+                        .WithMany("Materias")
+                        .HasForeignKey("UsuarioCi");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Nota", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Estudiante", "Estudiante")
+                        .WithMany("Notas")
+                        .HasForeignKey("EstudianteCi");
+
+                    b.HasOne("Vicuñas.Models.Materia", "Materia")
+                        .WithMany("Notas")
+                        .HasForeignKey("MateriaId");
+
+                    b.HasOne("Vicuñas.Models.Usuario", "Usuario")
+                        .WithMany("Notas")
+                        .HasForeignKey("UsuarioCi");
+
+                    b.Navigation("Estudiante");
+
+                    b.Navigation("Materia");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Paralelo", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Grado", "Grado")
+                        .WithMany("Paralelos")
+                        .HasForeignKey("GradoId");
+
+                    b.HasOne("Vicuñas.Models.Usuario", "Usuario")
+                        .WithMany("Parallelos")
+                        .HasForeignKey("UsuarioCi");
+
+                    b.Navigation("Grado");
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Reporte", b =>
+                {
+                    b.HasOne("Vicuñas.Models.Usuario", "Usuario")
+                        .WithMany("Reportes")
+                        .HasForeignKey("UsuarioCi")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Estudiante", b =>
+                {
+                    b.Navigation("Inscripciones");
+
+                    b.Navigation("Notas");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Grado", b =>
+                {
+                    b.Navigation("Paralelos");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Materia", b =>
+                {
+                    b.Navigation("Notas");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Padre", b =>
+                {
+                    b.Navigation("Inscripciones");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Paralelo", b =>
+                {
+                    b.Navigation("Estudiantes");
+
+                    b.Navigation("Inscripcion");
+                });
+
+            modelBuilder.Entity("Vicuñas.Models.Usuario", b =>
+                {
+                    b.Navigation("Inscripciones");
+
+                    b.Navigation("Materias");
+
+                    b.Navigation("Notas");
+
+                    b.Navigation("Parallelos");
+
+                    b.Navigation("Reportes");
                 });
 #pragma warning restore 612, 618
         }

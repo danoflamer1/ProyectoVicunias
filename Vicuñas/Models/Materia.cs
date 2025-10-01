@@ -9,7 +9,7 @@ namespace Vicuñas.Models
         [Required]
         public string? Nombre { get; set; }
         //relacion materia usuario
-        public int UsuarioCi { get; set; }
+        public int? UsuarioCi { get; set; }
         public virtual Usuario? Usuario { get; set; }
         //relacion materia nota
         public virtual List<Nota>? Notas { get; set; }
