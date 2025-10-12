@@ -6,7 +6,7 @@ namespace Vicuñas.Models
     public class Estudiante
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int CI { get; set; }
         public string? Ci_Complemento { get; set; }
         [Required]
@@ -19,6 +19,8 @@ namespace Vicuñas.Models
         public string? Nombres { get; set; }
         [Required]
         public char Sexo { get; set; }
+        [Required]
+        public bool Inscrito { get; set; }
         [Required]
         [Column(TypeName = "date")]
         public DateTime Fecha_Nac { get; set; }

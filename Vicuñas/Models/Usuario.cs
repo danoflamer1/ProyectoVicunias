@@ -6,7 +6,7 @@ namespace Vicuñas.Models
     public class Usuario
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         [Display(Name = "Cédula de Identidad")]
         public int CI { get; set; }
         public string? Ci_Complemento { get; set; }
@@ -27,7 +27,7 @@ namespace Vicuñas.Models
         //relacion usuario inscripcion
         public virtual List<Inscripcion>? Inscripciones { get; set; }
         //relacion usuario paralelo
-        public virtual List<Paralelo>? Parallelos { get; set; }
+        public virtual List<Paralelo>? Paralelos { get; set; }
         //relacion usuario materia
         public virtual List<Materia>? Materias { get; set; }
         //relacion usuario nota

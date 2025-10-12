@@ -1,16 +1,22 @@
-using System.Diagnostics;
+using Micontexto.Context;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.Diagnostics;
 using Vicuñas.Models;
 
 namespace Vicuñas.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ContextoV _context;
+
         private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, ContextoV context)
         {
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()

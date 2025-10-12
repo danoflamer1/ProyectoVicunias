@@ -4,6 +4,7 @@ using Micontexto.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Vicuñas.Migrations
 {
     [DbContext(typeof(ContextoV))]
-    partial class ContextoVModelSnapshot : ModelSnapshot
+    [Migration("20251012041457_Migra")]
+    partial class Migra
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,26 +27,26 @@ namespace Vicuñas.Migrations
 
             modelBuilder.Entity("EstudiantePadre", b =>
                 {
-                    b.Property<int>("EstudiantesId")
+                    b.Property<int>("EstudiantesID")
                         .HasColumnType("int");
 
-                    b.Property<int>("TutoresId")
+                    b.Property<int>("TutoresID")
                         .HasColumnType("int");
 
-                    b.HasKey("EstudiantesId", "TutoresId");
+                    b.HasKey("EstudiantesID", "TutoresID");
 
-                    b.HasIndex("TutoresId");
+                    b.HasIndex("TutoresID");
 
                     b.ToTable("EstudiantePadre");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Estudiante", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Apellido_M")
                         .IsRequired()
@@ -93,9 +96,6 @@ namespace Vicuñas.Migrations
 
                     b.Property<DateTime>("Fecha_Nac")
                         .HasColumnType("date");
-
-                    b.Property<bool>("Inscrito")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Localidad")
                         .IsRequired()
@@ -172,7 +172,7 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.HasIndex("ParaleloId");
 
@@ -187,9 +187,8 @@ namespace Vicuñas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
@@ -231,7 +230,7 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("EstudianteCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EstudianteId")
+                    b.Property<int?>("EstudianteID")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("Fecha")
@@ -315,26 +314,26 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("TutorCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("TutorId")
+                    b.Property<int?>("TutorID")
                         .HasColumnType("int");
 
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudianteId");
+                    b.HasIndex("EstudianteID");
 
                     b.HasIndex("ParaleloId")
                         .IsUnique()
                         .HasFilter("[ParaleloId] IS NOT NULL");
 
-                    b.HasIndex("TutorId");
+                    b.HasIndex("TutorID");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Inscripciones");
                 });
@@ -354,12 +353,12 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Materias");
                 });
@@ -378,7 +377,7 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("EstudianteCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("EstudianteId")
+                    b.Property<int?>("EstudianteID")
                         .HasColumnType("int");
 
                     b.Property<int?>("MateriaId")
@@ -390,7 +389,7 @@ namespace Vicuñas.Migrations
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.Property<int>("Valor")
@@ -398,22 +397,22 @@ namespace Vicuñas.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("EstudianteId");
+                    b.HasIndex("EstudianteID");
 
                     b.HasIndex("MateriaId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Notas");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Padre", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Apellido_M")
                         .IsRequired()
@@ -465,7 +464,7 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("Padres");
                 });
@@ -491,14 +490,17 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UsuarioCi")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("GradoId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Paralelos");
                 });
@@ -523,23 +525,23 @@ namespace Vicuñas.Migrations
                     b.Property<int>("UsuarioCi")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UsuarioId")
+                    b.Property<int?>("UsuarioID")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioID");
 
                     b.ToTable("Reportes");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Usuario", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
                     b.Property<string>("Apellido_M")
                         .IsRequired()
@@ -571,7 +573,7 @@ namespace Vicuñas.Migrations
                     b.Property<float>("Sueldo")
                         .HasColumnType("real");
 
-                    b.HasKey("Id");
+                    b.HasKey("ID");
 
                     b.ToTable("Usuarios");
                 });
@@ -580,13 +582,13 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Estudiante", null)
                         .WithMany()
-                        .HasForeignKey("EstudiantesId")
+                        .HasForeignKey("EstudiantesID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Vicuñas.Models.Padre", null)
                         .WithMany()
-                        .HasForeignKey("TutoresId")
+                        .HasForeignKey("TutoresID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -604,7 +606,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Estudiante", "Estudiante")
                         .WithMany("Inscripciones")
-                        .HasForeignKey("EstudianteId");
+                        .HasForeignKey("EstudianteID");
 
                     b.HasOne("Vicuñas.Models.Paralelo", "Paralelo")
                         .WithOne("Inscripcion")
@@ -612,11 +614,11 @@ namespace Vicuñas.Migrations
 
                     b.HasOne("Vicuñas.Models.Padre", "Tutor")
                         .WithMany("Inscripciones")
-                        .HasForeignKey("TutorId");
+                        .HasForeignKey("TutorID");
 
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Inscripciones")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Estudiante");
 
@@ -631,7 +633,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Materias")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Usuario");
                 });
@@ -640,7 +642,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Estudiante", "Estudiante")
                         .WithMany("Notas")
-                        .HasForeignKey("EstudianteId");
+                        .HasForeignKey("EstudianteID");
 
                     b.HasOne("Vicuñas.Models.Materia", "Materia")
                         .WithMany("Notas")
@@ -648,7 +650,7 @@ namespace Vicuñas.Migrations
 
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Notas")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Estudiante");
 
@@ -664,8 +666,8 @@ namespace Vicuñas.Migrations
                         .HasForeignKey("GradoId");
 
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
-                        .WithMany("Paralelos")
-                        .HasForeignKey("UsuarioId");
+                        .WithMany("Parallelos")
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Grado");
 
@@ -676,7 +678,7 @@ namespace Vicuñas.Migrations
                 {
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Reportes")
-                        .HasForeignKey("UsuarioId");
+                        .HasForeignKey("UsuarioID");
 
                     b.Navigation("Usuario");
                 });
@@ -718,7 +720,7 @@ namespace Vicuñas.Migrations
 
                     b.Navigation("Notas");
 
-                    b.Navigation("Paralelos");
+                    b.Navigation("Parallelos");
 
                     b.Navigation("Reportes");
                 });

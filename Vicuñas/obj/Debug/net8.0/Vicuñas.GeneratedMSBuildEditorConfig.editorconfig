@@ -28,6 +28,26 @@ build_property._RazorSourceGeneratorDebug =
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Gradoes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZG9lc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Gradoes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZG9lc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Gradoes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZG9lc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Gradoes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZG9lc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Gradoes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcR3JhZG9lc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -46,6 +66,26 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Paraleloes/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFyYWxlbG9lc1xDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Paraleloes/Delete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFyYWxlbG9lc1xEZWxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Paraleloes/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFyYWxlbG9lc1xEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Paraleloes/Edit.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFyYWxlbG9lc1xFZGl0LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Paraleloes/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGFyYWxlbG9lc1xJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/DANIEL/Desktop/Proyfunciona/ProyectoVicunias/Vicuñas/Views/Shared/Error.cshtml]

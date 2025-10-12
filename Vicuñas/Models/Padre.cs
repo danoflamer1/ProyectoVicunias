@@ -6,7 +6,7 @@ namespace Vicuñas.Models
     public class Padre
     {
         [Key]
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int CI { get; set; }
         public string? Ci_Complemento { get; set; }
         [Required]

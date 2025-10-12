@@ -4,6 +4,7 @@ using Micontexto.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Vicuñas.Migrations
 {
     [DbContext(typeof(ContextoV))]
-    partial class ContextoVModelSnapshot : ModelSnapshot
+    [Migration("20251012045102_Migra12")]
+    partial class Migra12
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -93,9 +96,6 @@ namespace Vicuñas.Migrations
 
                     b.Property<DateTime>("Fecha_Nac")
                         .HasColumnType("date");
-
-                    b.Property<bool>("Inscrito")
-                        .HasColumnType("bit");
 
                     b.Property<string>("Localidad")
                         .IsRequired()
@@ -187,9 +187,8 @@ namespace Vicuñas.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Nombre")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Numero")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 
