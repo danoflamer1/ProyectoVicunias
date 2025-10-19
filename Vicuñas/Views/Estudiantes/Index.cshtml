@@ -1,0 +1,168 @@
+﻿@model IEnumerable<Vicuñas.Models.Estudiante>
+
+@{
+    ViewData["Title"] = "Lista de Estudiantes";
+}
+
+<style>
+    /* Sticky header */
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff; /* fondo para que cubra la tabla al hacer scroll */
+    }
+
+    /* Espacio para los botones en el header */
+    .header-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+    }
+
+    /* Resaltar fila seleccionada */
+    tr.selected {
+        background-color: rgba(255, 235, 59, 0.15); /* amarillo suave */
+    }
+
+    /* Asegurar que la tabla no quede tapada por el header (opcional) */
+    .table-container {
+        margin-top: 0.5rem;
+    }
+
+    /* Ajustes responsivos: en pantallas pequeñas, los botones se apilan */
+    @@media (max-width: 576px) {
+        .header-actions
+
+    {
+        flex-wrap: wrap;
+    }
+
+    }
+</style>
+
+<div class="sticky-header p-3 border-bottom d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="h4 mb-0">Lista de Estudiantes</h1>
+    </div>
+
+    <div class="header-actions">
+        <!-- Botón Crear siempre visible -->
+        <a asp-action="Create" class="btn btn-primary">Agregar Nuevo Estudiante</a>
+
+        <!-- Botones Editar y Details: inicialmente ocultos -->
+        <a id="btnEditarHeader" class="btn btn-warning" style="display:none;">Editar Datos</a>
+        <a id="btnDetailsHeader" class="btn btn-info" style="display:none;">Ver Detalles</a>
+    </div>
+</div>
+
+<div class="table-container p-3">
+    <table class="table table-bordered table-striped" id="estudiantesTable">
+        <thead>
+            <tr>
+                <th>Apellidos y Nombres</th>
+                <th>CI</th>
+                <th>Sexo</th>
+                <th>N° Teléfono</th>
+                <th>N° Celular</th>
+                <th>Dirección</th>
+                <th>Paralelo</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td>@($"{item.Apellido_P} {item.Apellido_M} {item.Nombres}")</td>
+                    <td>@($"{item.CI}{(string.IsNullOrEmpty(item.Ci_Complemento) ? "" : "-" + item.Ci_Complemento)} {item.Ci_Expedido}")</td>
+                    <td>@item.Sexo</td>
+                    <td>@item.Nro_Telefono</td>
+                    <td>@item.Nro_Celular</td>
+                    <td>@item.Direccion</td>
+                    <td>@item.Paralelo?.Nombre</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const table = document.getElementById('estudiantesTable');
+            const btnEditar = document.getElementById('btnEditarHeader');
+            const btnDetails = document.getElementById('btnDetailsHeader');
+            let lastSelectedRow = null;
+            let lastId = null;
+
+            // Función para mostrar botones en header con rutas actualizadas
+            function showHeaderButtons(id) {
+                // Actualizar hrefs (ruta absoluta relativa al controlador "Estudiantes")
+                btnEditar.setAttribute('href', '/Estudiantes/Edit/' + id);
+                btnDetails.setAttribute('href', '/Estudiantes/Details/' + id);
+
+                btnEditar.style.display = 'inline-block';
+                btnDetails.style.display = 'inline-block';
+            }
+
+            function hideHeaderButtons() {
+                btnEditar.style.display = 'none';
+                btnDetails.style.display = 'none';
+                lastId = null;
+            }
+
+            // Evento dblclick en la tabla
+            table.addEventListener('dblclick', function (e) {
+                const tr = e.target.closest('tr');
+                if (!tr) return;
+
+                const id = tr.getAttribute('data-id');
+                if (!id) return;
+
+                // Si hay una fila previamente seleccionada, quitar la clase
+                if (lastSelectedRow && lastSelectedRow !== tr) {
+                    lastSelectedRow.classList.remove('selected');
+                }
+
+                // Alternar selección en la misma fila (si haces dblclick otra vez la mantiene seleccionada)
+                tr.classList.add('selected');
+                lastSelectedRow = tr;
+                lastId = id;
+
+                showHeaderButtons(id);
+
+                // Opcional: desplazarse suavemente para asegurar que el header esté visible
+                // window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            // Ocultar botones si se hace clic fuera de una fila
+            document.addEventListener('click', function (e) {
+                // Si el clic es dentro de la tabla en una fila, no ocultar
+                if (e.target.closest('#estudiantesTable')) return;
+
+                // Si el clic fue en los botones del header, no ocultar (permite click en Edit/Details)
+                if (e.target.closest('#btnEditarHeader') || e.target.closest('#btnDetailsHeader')) return;
+
+                // Si llegó aquí: clic fuera -> quitar selección y ocultar botones
+                if (lastSelectedRow) {
+                    lastSelectedRow.classList.remove('selected');
+                    lastSelectedRow = null;
+                }
+                hideHeaderButtons();
+            });
+
+            // También ocultar botones si presionan Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (lastSelectedRow) {
+                        lastSelectedRow.classList.remove('selected');
+                        lastSelectedRow = null;
+                    }
+                    hideHeaderButtons();
+                }
+            });
+        })();
+    </script>
+}
+
+

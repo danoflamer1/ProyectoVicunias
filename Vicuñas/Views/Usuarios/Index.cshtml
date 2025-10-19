@@ -1,0 +1,73 @@
+﻿@model IEnumerable<Vicuñas.Models.Usuario>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+<h1>Lista de usuarios</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo Usuario</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CI)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Nombres)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido_P)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Apellido_M)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sueldo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                    @if (!string.IsNullOrEmpty(item.Ci_Complemento))
+                    {
+                        <text>@Html.DisplayFor(model => item.CI)-@Html.DisplayFor(model => item.Ci_Complemento)</text>
+                    }
+                    else
+                    {
+                        @Html.DisplayFor(model => item.CI)
+                    }
+            </td>  
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombres)
+                </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido_P)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Apellido_M)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sueldo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.CI">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.CI">Detalles</a> |
+                <a asp-action="Delete" asp-route-id="@item.CI">Eliminar</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

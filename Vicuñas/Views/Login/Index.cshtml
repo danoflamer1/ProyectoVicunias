@@ -1,0 +1,140 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesión</title>
+    <style>
+        body {
+            background-color: #f5f7f9;
+            color: #333;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            color: white;
+            padding: 20px 0;
+            border-radius: 0 0 10px 10px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-grow: 1;
+            padding: 20px;
+        }
+
+        .login-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-left: 5px solid #0d6efd;
+        }
+
+        .login-title {
+            color: #0a58ca;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            font-weight: 600;
+            text-align: center;
+        }
+
+        .form-label {
+            font-weight: 500;
+            color: #495057;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
+            border: none;
+            padding: 10px 20px;
+            font-weight: 500;
+            width: 100%;
+            margin-top: 10px;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+            }
+
+        .required-field::after {
+            content: " *";
+            color: #dc3545;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ced4da;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+            .form-control:focus {
+                border-color: #86b7fe;
+                box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+                outline: none;
+            }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="container">
+            <h1>Sistema de Gestión</h1>
+            <p>Inicie sesión para acceder al sistema</p>
+        </div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-card">
+            <h2 class="login-title">Iniciar Sesión</h2>
+
+            <form asp-controller="Login" asp-action="Login" method="post">
+                <div class="form-group">
+                    <label for="usuariol" class="form-label required-field">Usuario</label>
+                    <input type="text" class="form-control" id="usuariol" name="usuariol" placeholder="Ingrese su usuario">
+                </div>
+
+                <div class="form-group">
+                    <label for="password" class="form-label required-field">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Ingrese su contraseña">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+                <button type="submit" class="btn btn-primary" asp-controller="Home" asp-action="Index">Entrar directo xd</button>
+            </form>
+            @if (TempData["LoginError"] != null)
+            {
+               <div class="alert alert-error">@TempData["LoginError"]</div>
+            }
+        </div>
+    </div>
+</body>
+</html>

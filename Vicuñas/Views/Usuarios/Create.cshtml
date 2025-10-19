@@ -1,0 +1,80 @@
+﻿@model Vicuñas.Models.Usuario
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Crear</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="CI" class="control-label"></label>
+                <input asp-for="CI" class="form-control" />
+                <span asp-validation-for="CI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" id="hasComplemento" />
+                <label for="hasComplemento">¿Carnet con complemento?</label>
+            </div>
+            <div class="form-group" id="complementoGroup" style="display:none;">
+                <label asp-for="Ci_Complemento" class="control-label"></label>
+                <input asp-for="Ci_Complemento" class="form-control" />
+                <span asp-validation-for="Ci_Complemento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido_P" class="control-label"></label>
+                <input asp-for="Apellido_P" class="form-control" />
+                <span asp-validation-for="Apellido_P" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido_M" class="control-label"></label>
+                <input asp-for="Apellido_M" class="form-control" />
+                <span asp-validation-for="Apellido_M" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombres" class="control-label"></label>
+                <input asp-for="Nombres" class="form-control" />
+                <span asp-validation-for="Nombres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rol" class="control-label"></label>
+                <select asp-for="Rol" class="form-control">
+                    <option value="1">Administrador</option>
+                    <option value="2">Secretario</option>
+					<option value="3">Maestro</option>
+                </select>
+                <span asp-validation-for="Rol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Sueldo" class="control-label"></label>
+                <input asp-for="Sueldo" class="form-control" />
+                <span asp-validation-for="Sueldo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contraseña" class="control-label"></label>
+                <input asp-for="Contraseña" class=" form-control" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        document.getElementById('hasComplemento').addEventListener('change', function () {
+            var complementoGroup = document.getElementById('complementoGroup');
+            complementoGroup.style.display = this.checked ? 'block' : 'none';
+        });
+    </script>
+}
+<div>
+    <a asp-action="Index">Volver</a>
+</div>
+
