@@ -13,6 +13,8 @@ namespace Vicuñas.Models
         public virtual Usuario? Usuario { get; set; }
         //relacion materia nota
         public virtual List<Nota>? Notas { get; set; }
-
+        //relacion materia usuario
+        public int? ParaleloId { get; set; }
+        public virtual Paralelo? Paralelo { get; set; }
     }
 }

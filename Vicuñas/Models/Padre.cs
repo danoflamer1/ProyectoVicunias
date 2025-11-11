@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Vicuñas.Dtos;
 
 namespace Vicuñas.Models
 {
@@ -10,7 +11,8 @@ namespace Vicuñas.Models
         public int CI { get; set; }
         public string? Ci_Complemento { get; set; }
         [Required]
-        public string? Ci_Expedido { get; set; }
+        public string? Ci_Expedido { get; set; } 
+        public Rolenum Rol { get; set; }
         [Required]
         public string? Tipo_Tutor { get; set; }
         [Required, MinLength(5), MaxLength(50)]

@@ -7,9 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Micontexto.Context;
 using Vicuñas.Models;
+using Microsoft.AspNetCore.Authorization;
+using Vicuñas.ViewModels;
 
 namespace Vicuñas.Controllers
 {
+    [Authorize (Roles = "Administrador, Secretaria, Tutor")]
     public class EstudiantesController : Controller
     {
         private readonly ContextoV _context;
@@ -20,30 +23,71 @@ namespace Vicuñas.Controllers
         }
 
         // GET: Estudiantes
-        public async Task<IActionResult> Index()
+
+
+        // EstudiantesController.cs
+        public async Task<IActionResult> Index(string searchName)
         {
-            var contextoV = _context.Estudiantes.Include(e => e.Paralelo);
-            return View(await contextoV.ToListAsync());
+            // Query base incluyendo la relación Paralelo
+            var query = _context.Estudiantes
+                                .Include(e => e.Paralelo)   // <-- importante
+                                .AsQueryable();
+
+            if (!string.IsNullOrWhiteSpace(searchName))
+            {
+                query = query.Where(e =>
+                    (e.Nombres ?? "").Contains(searchName) ||
+                    (e.Apellido_P ?? "").Contains(searchName) ||
+                    (e.Apellido_M ?? "").Contains(searchName));
+            }
+
+            var lista = await query.AsNoTracking().ToListAsync();
+            return View(lista); // nunca es null, al menos devuelve una lista vacía
         }
+
+
 
         // GET: Estudiantes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return NotFound();
-            }
 
             var estudiante = await _context.Estudiantes
                 .Include(e => e.Paralelo)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (estudiante == null)
-            {
-                return NotFound();
-            }
+                .FirstOrDefaultAsync(e => e.Id == id);
 
-            return View(estudiante);
+            if (estudiante == null)
+                return NotFound();
+
+            //Mensajes dirigidos a este estudiante
+      /*    var mensajes = await _context.Mensajes
+                .Where(m => m.EstudianteId == id)
+                .ToListAsync();
+      */
+            // Último trimestre: asumimos el mayor valor de Trimestre
+            var ultimoTrimestre = await _context.Notas
+                .Where(n => n.EstudianteCi == estudiante.CI)
+                .MaxAsync(n => n.Trimestre);
+
+            var notas = await _context.Notas
+                .Include(n => n.Materia)
+                .Where(n => n.EstudianteCi == estudiante.CI && n.Trimestre == ultimoTrimestre)
+                .ToListAsync();
+
+            var viewModel = new EstudianteDetailsViewModel
+            {
+                Estudiante = estudiante,
+              //  Mensajes = mensajes,
+                Notas = notas
+            };
+
+            return View(viewModel);
         }
+
+
+
+
 
         // GET: Estudiantes/Create
         public IActionResult Create()
@@ -162,3 +206,4 @@ namespace Vicuñas.Controllers
         }
     }
 }
+

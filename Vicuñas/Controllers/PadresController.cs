@@ -7,29 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Micontexto.Context;
 using Vicuñas.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Vicuñas.Controllers
 {
-    [Authorize(Roles = "Administrador, Maestro")]
-    public class NotasController : Controller
+    public class PadresController : Controller
     {
         private readonly ContextoV _context;
 
-        public NotasController(ContextoV context)
+        public PadresController(ContextoV context)
         {
             _context = context;
         }
 
-        // GET: Notas
+        // GET: Padres
         public async Task<IActionResult> Index()
         {
-            var contextoV = _context.Notas.Include(n => n.Materia);
-            return View(await contextoV.ToListAsync());
+            return View(await _context.Padres.ToListAsync());
         }
 
-
-        // GET: Notas/Details/5
+        // GET: Padres/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -37,42 +33,39 @@ namespace Vicuñas.Controllers
                 return NotFound();
             }
 
-            var nota = await _context.Notas
-                .Include(n => n.Materia)
+            var padre = await _context.Padres
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (nota == null)
+            if (padre == null)
             {
                 return NotFound();
             }
 
-            return View(nota);
+            return View(padre);
         }
 
-        // GET: Notas/Create
+        // GET: Padres/Create
         public IActionResult Create()
         {
-            ViewData["MateriaId"] = new SelectList(_context.Materias, "Id", "Nombre");
             return View();
         }
 
-        // POST: Notas/Create
+        // POST: Padres/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Anio,Trimestre,Valor,UsuarioCi,EstudianteCi,MateriaId")] Nota nota)
+        public async Task<IActionResult> Create([Bind("Id,CI,Ci_Complemento,Ci_Expedido,Rol,Tipo_Tutor,Apellido_P,Apellido_M,Nombres,Idioma1,Laburo,Educacion,Contraseña,Fecha_Nac")] Padre padre)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(nota);
+                _context.Add(padre);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MateriaId"] = new SelectList(_context.Materias, "Id", "Nombre", nota.MateriaId);
-            return View(nota);
+            return View(padre);
         }
 
-        // GET: Notas/Edit/5
+        // GET: Padres/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -80,23 +73,22 @@ namespace Vicuñas.Controllers
                 return NotFound();
             }
 
-            var nota = await _context.Notas.FindAsync(id);
-            if (nota == null)
+            var padre = await _context.Padres.FindAsync(id);
+            if (padre == null)
             {
                 return NotFound();
             }
-            ViewData["MateriaId"] = new SelectList(_context.Materias, "Id", "Nombre", nota.MateriaId);
-            return View(nota);
+            return View(padre);
         }
 
-        // POST: Notas/Edit/5
+        // POST: Padres/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Anio,Trimestre,Valor,UsuarioCi,EstudianteCi,MateriaId")] Nota nota)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CI,Ci_Complemento,Ci_Expedido,Rol,Tipo_Tutor,Apellido_P,Apellido_M,Nombres,Idioma1,Laburo,Educacion,Contraseña,Fecha_Nac")] Padre padre)
         {
-            if (id != nota.Id)
+            if (id != padre.Id)
             {
                 return NotFound();
             }
@@ -105,12 +97,12 @@ namespace Vicuñas.Controllers
             {
                 try
                 {
-                    _context.Update(nota);
+                    _context.Update(padre);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!NotaExists(nota.Id))
+                    if (!PadreExists(padre.Id))
                     {
                         return NotFound();
                     }
@@ -121,11 +113,10 @@ namespace Vicuñas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MateriaId"] = new SelectList(_context.Materias, "Id", "Nombre", nota.MateriaId);
-            return View(nota);
+            return View(padre);
         }
 
-        // GET: Notas/Delete/5
+        // GET: Padres/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -133,35 +124,34 @@ namespace Vicuñas.Controllers
                 return NotFound();
             }
 
-            var nota = await _context.Notas
-                .Include(n => n.Materia)
+            var padre = await _context.Padres
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (nota == null)
+            if (padre == null)
             {
                 return NotFound();
             }
 
-            return View(nota);
+            return View(padre);
         }
 
-        // POST: Notas/Delete/5
+        // POST: Padres/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var nota = await _context.Notas.FindAsync(id);
-            if (nota != null)
+            var padre = await _context.Padres.FindAsync(id);
+            if (padre != null)
             {
-                _context.Notas.Remove(nota);
+                _context.Padres.Remove(padre);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool NotaExists(int id)
+        private bool PadreExists(int id)
         {
-            return _context.Notas.Any(e => e.Id == id);
+            return _context.Padres.Any(e => e.Id == id);
         }
     }
 }

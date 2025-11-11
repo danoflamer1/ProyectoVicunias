@@ -4,6 +4,7 @@
     {
         Administrador =1,
         Secretaria =2,
-        Maestro =3
+        Maestro =3,
+        Tutor = 4
     }
 }

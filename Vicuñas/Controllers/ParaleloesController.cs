@@ -8,10 +8,61 @@ using Microsoft.EntityFrameworkCore;
 using Micontexto.Context;
 using Vicuñas.Models;
 
+using ClosedXML.Excel;
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
+
+
 namespace Vicuñas.Controllers
 {
+    [Authorize(Roles = "Administrador, Maestro, Tutor")]
     public class ParaleloesController : Controller
     {
+        public async Task<IActionResult> ExportarExcel()
+        {
+            var estudiantes = await _context.Estudiantes
+                .Include(e => e.Paralelo)
+                .OrderBy(e => e.Paralelo != null ? e.Paralelo.Nombre : "")
+                .ToListAsync();
+
+            using (var workbook = new XLWorkbook())
+            {
+                var worksheet = workbook.Worksheets.Add("Estudiantes");
+                var currentRow = 1;
+
+                // Encabezados
+                worksheet.Cell(currentRow, 1).Value = "CI";
+                worksheet.Cell(currentRow, 2).Value = "Nombres";
+                worksheet.Cell(currentRow, 3).Value = "Apellido Paterno";
+                worksheet.Cell(currentRow, 4).Value = "Apellido Materno";
+                worksheet.Cell(currentRow, 5).Value = "Paralelo";
+
+                // Filas
+                foreach (var e in estudiantes)
+                {
+                    currentRow++;
+                    worksheet.Cell(currentRow, 1).Value = e.CI;
+                    worksheet.Cell(currentRow, 2).Value = e.Nombres;
+                    worksheet.Cell(currentRow, 3).Value = e.Apellido_P;
+                    worksheet.Cell(currentRow, 4).Value = e.Apellido_M;
+                    worksheet.Cell(currentRow, 5).Value = e.Paralelo?.Nombre ?? "-";
+                }
+
+                using (var stream = new MemoryStream())
+                {
+                    workbook.SaveAs(stream);
+                    var content = stream.ToArray();
+                    return File(content,
+                        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                        "Lista_Estudiantes.xlsx");
+                }
+            }
+        }
+
+
+
+
+
         private readonly ContextoV _context;
 
         public ParaleloesController(ContextoV context)
@@ -51,10 +102,24 @@ namespace Vicuñas.Controllers
                 .Include(p => p.Grado)
                 .Include(p => p.Usuario)
                 .FirstOrDefaultAsync(m => m.Id == id);
+
             if (paralelo == null)
             {
                 return NotFound();
             }
+
+            // Obtener estudiantes del paralelo
+            var estudiantes = await _context.Estudiantes
+                .Where(e => e.ParaleloId == id)
+                .ToListAsync();
+
+            ViewBag.Estudiantes = estudiantes;
+            // Obtener estudiantes del paralelo
+            var materias = await _context.Estudiantes
+                .Where(e => e.ParaleloId == id)
+                .ToListAsync();
+
+            ViewBag.Materias = materias;
 
             return View(paralelo);
         }

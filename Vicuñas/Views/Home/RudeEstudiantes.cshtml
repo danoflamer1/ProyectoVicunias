@@ -1,7 +1,10 @@
-﻿@model Vicuñas.Models.ErrorViewModel
+﻿@model Vicuñas.Models.Estudiante
 
 @{
     ViewData["Title"] = "RudeEstudiantes";
+}
+@{
+    var discapacidadVisible = Model?.Discapacidad == true ? "block" : "none";
 }
 
 <!DOCTYPE html>
@@ -18,6 +21,7 @@
             color: #333;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
+
         .header {
             background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
             color: white;
@@ -26,6 +30,7 @@
             margin-bottom: 30px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+
         .form-section {
             background-color: white;
             border-radius: 8px;
@@ -34,6 +39,7 @@
             box-shadow: 0 4px 8px rgba(0,0,0,0.05);
             border-left: 5px solid #0d6efd;
         }
+
         .section-title {
             color: #0a58ca;
             border-bottom: 2px solid #e9ecef;
@@ -41,30 +47,37 @@
             margin-bottom: 20px;
             font-weight: 600;
         }
+
         .form-label {
             font-weight: 500;
             color: #495057;
         }
+
         .btn-primary {
             background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 100%);
             border: none;
             padding: 10px 20px;
             font-weight: 500;
         }
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
-        }
+
+            .btn-primary:hover {
+                background: linear-gradient(135deg, #0a58ca 0%, #084298 100%);
+            }
+
         .required-field::after {
             content: " *";
             color: #dc3545;
         }
+
         .form-control:focus {
             border-color: #86b7fe;
             box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
+
         .container {
             padding-bottom: 50px;
         }
+
         .form-section:last-child {
             margin-bottom: 40px;
         }
@@ -77,23 +90,35 @@
             <p class="lead">Sistema de Inscripción Estudiantil - Bolivia</p>
         </div>
 
-        <form id="rudeForm">
+        <!-- Formulario principal para crear/editar estudiante -->
+        <form id="rudeForm" asp-controller="Home" asp-action="CreateEstudiante" method="post">
+            @Html.AntiForgeryToken()
+
+            @* Se QUITA el hidden duplicado de CI para evitar enviar valor antiguo/por defecto *@
+            @* El campo visible del CI es el que debe usarse y bindeará correctamente *@
+
+            <input asp-for="Id" type="hidden" />
+            <input asp-for="Fecha_Nac" type="hidden" id="Fecha_Nac" />
+
             <div class="form-section">
                 <h3 class="section-title">II. DATOS DE LA O EL ESTUDIANTE</h3>
 
                 <h5 class="mt-4 mb-3 text-primary">2.1 Apellidos y Nombres</h5>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="apellidoPaterno" class="form-label required-field">Apellido Paterno</label>
-                        <input type="text" class="form-control" id="apellidoPaterno" name="apellidoPaterno" required>
+                        <label asp-for="Apellido_P" class="form-label required-field">Apellido Paterno</label>
+                        <input asp-for="Apellido_P" class="form-control" id="apellidoPaterno" />
+                        <span asp-validation-for="Apellido_P" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                        <label for="apellidoMaterno" class="form-label required-field">Apellido Materno</label>
-                        <input type="text" class="form-control" id="apellidoMaterno" name="apellidoMaterno" required>
+                        <label asp-for="Apellido_M" class="form-label required-field">Apellido Materno</label>
+                        <input asp-for="Apellido_M" class="form-control" id="apellidoMaterno" />
+                        <span asp-validation-for="Apellido_M" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                        <label for="nombres" class="form-label required-field">Nombre(s)</label>
-                        <input type="text" class="form-control" id="nombres" name="nombres" required>
+                        <label asp-for="Nombres" class="form-label required-field">Nombre(s)</label>
+                        <input asp-for="Nombres" class="form-control" id="nombres" />
+                        <span asp-validation-for="Nombres" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -101,11 +126,12 @@
                 <div class="row mb-3">
                     <div class="col-md-3">
                         <label for="paisNacimiento" class="form-label required-field">Pais</label>
-                        <input type="text" class="form-control" id="paisNacimiento" name="paisNacimiento" required>
+                        <input asp-for="Pais" class="form-control" id="paisNacimiento" />
+                        <span asp-validation-for="Pais" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label for="deptoNacimiento" class="form-label required-field">Depto.</label>
-                        <select class="form-select" id="deptoNacimiento" name="deptoNacimiento" required>
+                        <select asp-for="Departamento" class="form-select" id="deptoNacimiento">
                             <option value="">Seleccione...</option>
                             <option value="LP">La Paz</option>
                             <option value="CB">Cochabamba</option>
@@ -117,76 +143,70 @@
                             <option value="BN">Beni</option>
                             <option value="PD">Pando</option>
                         </select>
+                        <span asp-validation-for="Departamento" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label for="provNacimiento" class="form-label required-field">Prov.</label>
-                        <input type="text" class="form-control" id="provNacimiento" name="provNacimiento" required>
+                        <input asp-for="Provincia" class="form-control" id="provNacimiento" />
+                        <span asp-validation-for="Provincia" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="municipioNacimiento" class="form-label">Municipio</label>
+                        <input asp-for="Municipio" class="form-control" id="municipioNacimiento" />
+                        <span asp-validation-for="Municipio" class="text-danger"></span>
                     </div>
                     <div class="col-md-3">
                         <label for="localidadNacimiento" class="form-label">Localidad / Comunidad</label>
-                        <input type="text" class="form-control" id="localidadNacimiento" name="localidadNacimiento">
+                        <input asp-for="Localidad" class="form-control" id="localidadNacimiento" />
+                        <span asp-validation-for="Localidad" class="text-danger"></span>
                     </div>
                 </div>
 
                 <h5 class="mt-4 mb-3 text-primary">2.3 Certificado de Nacimiento</h5>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="libroNro" class="form-label">Libro Nro.</label>
-                        <input type="text" class="form-control" id="libroNro" name="libroNro">
+                        <label asp-for="Certificado_Libro" class="form-label">Libro Nro.</label>
+                        <input asp-for="Certificado_Libro" class="form-control" id="libroNro" />
+                        <span asp-validation-for="Certificado_Libro" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                        <label for="partidaNro" class="form-label">Partida Nro.</label>
-                        <input type="text" class="form-control" id="partidaNro" name="partidaNro">
+                        <label asp-for="Certificado_Partida" class="form-label">Partida Nro.</label>
+                        <input asp-for="Certificado_Partida" class="form-control" id="partidaNro" />
+                        <span asp-validation-for="Certificado_Partida" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                        <label for="folioNro" class="form-label">Folio Nro.</label>
-                        <input type="text" class="form-control" id="folioNro" name="folioNro">
+                        <label asp-for="Certificado_Folio" class="form-label">Folio Nro.</label>
+                        <input asp-for="Certificado_Folio" class="form-control" id="folioNro" />
+                        <span asp-validation-for="Certificado_Folio" class="text-danger"></span>
                     </div>
                 </div>
 
                 <h5 class="mt-4 mb-3 text-primary">2.4 Fecha de Nacimiento</h5>
                 <div class="row mb-3">
-                    <div class="col-md-2">
-                        <label for="diaNacimiento" class="form-label required-field">Día</label>
-                        <input type="number" class="form-control" id="diaNacimiento" name="diaNacimiento" min="1" max="31" required>
-                    </div>
-                    <div class="col-md-4">
-                        <label for="mesNacimiento" class="form-label required-field">Mes</label>
-                        <select class="form-select" id="mesNacimiento" name="mesNacimiento" required>
-                            <option value="">Seleccione...</option>
-                            <option value="1">Enero</option>
-                            <option value="2">Febrero</option>
-                            <option value="3">Marzo</option>
-                            <option value="4">Abril</option>
-                            <option value="5">Mayo</option>
-                            <option value="6">Junio</option>
-                            <option value="7">Julio</option>
-                            <option value="8">Agosto</option>
-                            <option value="9">Septiembre</option>
-                            <option value="10">Octubre</option>
-                            <option value="11">Noviembre</option>
-                            <option value="12">Diciembre</option>
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="anioNacimiento" class="form-label required-field">Año</label>
-                        <input type="number" class="form-control" id="anioNacimiento" name="anioNacimiento" min="1900" max="2030" required>
+                    <div class="row mb-3">
+                        <div class="form-group">
+                            <label asp-for="Fecha_Nac" class="control-label"></label>
+                            <input asp-for="Fecha_Nac" class="form-control" />
+                            <span asp-validation-for="Fecha_Nac" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
 
                 <h5 class="mt-4 mb-3 text-primary">2.5 Cedula de Identidad</h5>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="ciNumero" class="form-label">Número</label>
-                        <input type="text" class="form-control" id="ciNumero" name="ciNumero">
+                        <label asp-for="CI" class="form-label">Número</label>
+                        <input asp-for="CI" class="form-control" id="ciNumero" />
+                        <span asp-validation-for="CI" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                        <label for="ciComplemento" class="form-label">Complemento</label>
-                        <input type="text" class="form-control" id="ciComplemento" name="ciComplemento">
+                        <label asp-for="Ci_Complemento" class="form-label">Complemento</label>
+                        <input asp-for="Ci_Complemento" class="form-control" id="ciComplemento" />
+                        <span asp-validation-for="Ci_Complemento" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
-                        <label for="ciExpedido" class="form-label">Expedido</label>
-                        <select class="form-select" id="ciExpedido" name="ciExpedido">
+                        <label asp-for="Ci_Expedido" class="form-label">Expedido</label>
+                        <select asp-for="Ci_Expedido" class="form-select" id="ciExpedido">
                             <option value="">Seleccione...</option>
                             <option value="LP">La Paz</option>
                             <option value="CB">Cochabamba</option>
@@ -198,13 +218,14 @@
                             <option value="BN">Beni</option>
                             <option value="PD">Pando</option>
                         </select>
+                        <span asp-validation-for="Ci_Expedido" class="text-danger"></span>
                     </div>
                 </div>
 
-                <h5 class="mt-4 mb-3 text-primary">2.5.1 Solo para extranjeros: Tipo de documento presentado para la inscripción</h5>
+                <h5 class="mt-4 mb-3 text-primary">2.5.1 Solo para extranjeros: Tipo de documento</h5>
                 <div class="row mb-3">
                     <div class="col-md-12">
-                        <select class="form-select" id="tipoDocumentoExtranjero" name="tipoDocumentoExtranjero">
+                        <select asp-for="Tipo_Documento_Extranjero" class="form-select" id="tipoDocumentoExtranjero">
                             <option value="">Seleccione...</option>
                             <option value="dni">Documento Nacional de Identidad</option>
                             <option value="pasaporte">Pasaporte</option>
@@ -213,22 +234,25 @@
                             <option value="certificado">Certificado de Nacimiento del País de Origen</option>
                             <option value="dniPadre">Documento Nacional de Identidad del Padre, Madre o Apoderado</option>
                         </select>
+                        <span asp-validation-for="Tipo_Documento_Extranjero" class="text-danger"></span>
                     </div>
                 </div>
 
-                <h5 class="mt-4 mb-3 text-primary">2.5.2 Codigo del documento presentado (solo para extranjeros)</h5>
+                <h5 class="mt-4 mb-3 text-primary">2.5.2 Código del documento presentado (solo para extranjeros)</h5>
                 <div class="row mb-3">
                     <div class="col-md-6">
-                        <label for="numeroDocumentoExtranjero" class="form-label">Número del documento</label>
-                        <input type="text" class="form-control" id="numeroDocumentoExtranjero" name="numeroDocumentoExtranjero">
+                        <label asp-for="Nro_Documento_Extranjero" class="form-label">Número del documento</label>
+                        <input asp-for="Nro_Documento_Extranjero" class="form-control" id="numeroDocumentoExtranjero" />
+                        <span asp-validation-for="Nro_Documento_Extranjero" class="text-danger"></span>
                     </div>
                 </div>
 
                 <h5 class="mt-4 mb-3 text-primary">2.6 Código RUDE</h5>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="codigoRUDE" class="form-label">Código RUDE (Generado automáticamente por el sistema)</label>
-                        <input type="text" class="form-control" id="codigoRUDE" name="codigoRUDE" readonly>
+                        <label asp-for="Nro_Rude" class="form-label">Código RUDE (Generado automáticamente por el sistema)</label>
+                        <input asp-for="Nro_Rude" class="form-control" id="codigoRUDE" readonly />
+                        <span asp-validation-for="Nro_Rude" class="text-danger"></span>
                     </div>
                 </div>
 
@@ -236,791 +260,244 @@
                     <div class="col-md-3">
                         <h5 class="text-primary">2.7 Sexo</h5>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexo" id="sexoM" value="M" required>
+                            <input class="form-check-input" asp-for="Sexo" type="radio" value="M" id="sexoM" />
                             <label class="form-check-label" for="sexoM">Masculino</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="sexo" id="sexoF" value="F" required>
+                            <input class="form-check-input" asp-for="Sexo" type="radio" value="F" id="sexoF" />
                             <label class="form-check-label" for="sexoF">Femenino</label>
                         </div>
+                        <span asp-validation-for="Sexo" class="text-danger"></span>
                     </div>
                     <div class="col-md-4">
                         <h5 class="text-primary">2.8 ¿Presenta alguna discapacidad?</h5>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="discapacidad" id="discapacidadSi" value="si">
+                            <input class="form-check-input" asp-for="Discapacidad" type="radio" value="true" id="discapacidadSi" />
                             <label class="form-check-label" for="discapacidadSi">Sí</label>
                         </div>
                         <div class="form-check">
-                            <input class="form-check-input" type="radio" name="discapacidad" id="discapacidadNo" value="no" checked>
+                            <input class="form-check-input" asp-for="Discapacidad" type="radio" value="false" id="discapacidadNo" />
                             <label class="form-check-label" for="discapacidadNo">No</label>
                         </div>
-                    </div>
-                    <div class="col-md-5">
-                        <h5 class="text-primary">2.9 N° de registro de discapacidad o BIC</h5>
-                        <label for="registroDiscapacidad" class="form-label">(En caso de tener discapacidad)</label>
-                        <input type="text" class="form-control" id="registroDiscapacidad" name="registroDiscapacidad">
+                        <span asp-validation-for="Discapacidad" class="text-danger"></span>
                     </div>
                 </div>
             </div>
+            <div id="discapacidadFields" style="display:@discapacidadVisible">
+                <div class="col-md-5">
+                    <h5 class="text-primary">2.9 N° de registro de discapacidad o BIC</h5>
+                    <label asp-for="Nro_Discapacidad" class="form-label">(En caso de tener discapacidad)</label>
+                    <input asp-for="Nro_Discapacidad" class="form-control" id="registroDiscapacidad" />
+                    <span asp-validation-for="Nro_Discapacidad" class="text-danger"></span>
+                </div>
+                <h3 class="section-title">4.8 CARACTERISTICAS PARTICULARES DEL LA O EL ESTUDIANTE</h3>
 
-            <div class="form-section">
-                <h3 class="section-title">III. DIRECCIÓN DOMICILIARIA DE LA O EL ESTUDIANTE</h3>
+                <h5 class="mt-4 mb-3 text-primary">4.8.1 Tipos y Grados de Discapacidad</h5>
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="deptoDomicilio" class="form-label required-field">Departamento</label>
-                        <select class="form-select" id="deptoDomicilio" name="deptoDomicilio" required>
+                        <h5 class="text-primary">AUDITIVA</h5>
+                        <select asp-for="Tipo_Auditiva" class="form-select" id="audicion">
                             <option value="">Seleccione...</option>
-                            <option value="LP">La Paz</option>
-                            <option value="CB">Cochabamba</option>
-                            <option value="SC">Santa Cruz</option>
-                            <option value="OR">Oruro</option>
-                            <option value="PT">Potosí</option>
-                            <option value="CH">Chuquisaca</option>
-                            <option value="TJ">Tarija</option>
-                            <option value="BN">Beni</option>
-                            <option value="PD">Pando</option>
+                            <option value="aLeve">Pérdida auditiva leve</option>
+                            <option value="aGrave">Pérdida auditiva grave</option>
+                            <option value="aMuyLev">Pérdida auditiva muy grave</option>
+                            <option value="aMult">Múltiple</option>
                         </select>
+                        <span asp-validation-for="Tipo_Auditiva" class="text-danger"></span>
                     </div>
+
                     <div class="col-md-4">
-                        <label for="provDomicilio" class="form-label required-field">Provincia</label>
-                        <input type="text" class="form-control" id="provDomicilio" name="provDomicilio" required>
+                        <h5 class="text-primary">VISUAL</h5>
+                        <select asp-for="Tipo_Visual" class="form-select" id="visual">
+                            <option value="">Seleccione...</option>
+                            <option value="vTotal">Ceguera total</option>
+                            <option value="vBaja">Baja Visión</option>
+                            <option value="vMult">Múltiple</option>
+                        </select>
+                        <span asp-validation-for="Tipo_Visual" class="text-danger"></span>
                     </div>
+
                     <div class="col-md-4">
-                        <label for="municipioDomicilio" class="form-label required-field">Municipio</label>
-                        <input type="text" class="form-control" id="municipioDomicilio" name="municipioDomicilio" required>
+                        <h5 class="text-primary">INTELECTUAL</h5>
+                        <select asp-for="Tipo_Intelectual" class="form-select" id="intelectual">
+                            <option value="">Seleccione...</option>
+                            <option value="iLeve">Leve</option>
+                            <option value="iMode">Moderado</option>
+                            <option value="iGrave">Grave</option>
+                            <option value="iMuygrave">Muy Grave</option>
+                            <option value="iMult">Múltiple</option>
+                        </select>
+                        <span asp-validation-for="Tipo_Intelectual" class="text-danger"></span>
                     </div>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-4">
-                        <label for="localidadDomicilio" class="form-label">Localidad / Comunidad</label>
-                        <input type="text" class="form-control" id="localidadDomicilio" name="localidadDomicilio">
+                        <h5 class="text-primary">FISICO/MOTORA</h5>
+                        <select asp-for="Tipo_Fisica" class="form-select" id="fisicoMotora">
+                            <option value="">Seleccione...</option>
+                            <option value="fLeve">Leve</option>
+                            <option value="fMode">Moderado</option>
+                            <option value="fGrave">Grave</option>
+                            <option value="fMuygrave">Muy Grave</option>
+                            <option value="fMult">Múltiple</option>
+                        </select>
+                        <span asp-validation-for="Tipo_Fisica" class="text-danger"></span>
                     </div>
+
                     <div class="col-md-4">
-                        <label for="zonaDomicilio" class="form-label">Zona / Barrio</label>
-                        <input type="text" class="form-control" id="zonaDomicilio" name="zonaDomicilio">
+                        <h5 class="text-primary">PSIQUICA-MENTAL</h5>
+                        <select asp-for="Tipo_Mental" class="form-select" id="psiquicaMental">
+                            <option value="">Seleccione...</option>
+                            <option value="pLeve">Leve</option>
+                            <option value="pMode">Moderado</option>
+                            <option value="pGrave">Grave</option>
+                            <option value="pMuygrave">Muy Grave</option>
+                            <option value="pMult">Múltiple</option>
+                        </select>
+                        <span asp-validation-for="Tipo_Mental" class="text-danger"></span>
                     </div>
+
                     <div class="col-md-4">
-                        <label for="calleDomicilio" class="form-label">Avenida / Calle</label>
-                        <input type="text" class="form-control" id="calleDomicilio" name="calleDomicilio">
+                        <h5 class="text-primary">TRANSTORNO DEL ESPECTRO AUTISTA</h5>
+                        <select asp-for="Tipo_Discapacidad" class="form-select" id="trastornoAutista">
+                            <option value="">Seleccione...</option>
+                            <option value="pLeve">Leve</option>
+                            <option value="pMode">Moderado</option>
+                            <option value="pGrave">Grave</option>
+                            <option value="pMuygrave">Muy Grave</option>
+                            <option value="pMult">Múltiple</option>
+                        </select>
+                        <span asp-validation-for="Tipo_Discapacidad" class="text-danger"></span>
                     </div>
                 </div>
 
+                <h5 class="mt-4 mb-3 text-primary">4.8.1.1 LA DISCAPACIDAD DE LA O EL ESTUDIANTE ES: </h5>
                 <div class="row mb-3">
-                    <div class="col-md-4">
-                        <label for="numeroDomicilio" class="form-label">Nro. Domicilio</label>
-                        <input type="text" class="form-control" id="numeroDomicilio" name="numeroDomicilio">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="Tipo_Discapacidad" type="radio" value="nac" id="oNacimiento" />
+                            <label class="form-check-label" for="oNacimiento">De nacimiento</label>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="telefonoFijo" class="form-label">Teléfono fijo</label>
-                        <input type="tel" class="form-control" id="telefonoFijo" name="telefonoFijo">
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" asp-for="Tipo_Discapacidad" type="radio" value="Adq" id="oAdquirida" />
+                            <label class="form-check-label" for="oAdquirida">Adquirida</label>
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        <label for="celularContacto" class="form-label required-field">Celular de contacto</label>
-                        <input type="tel" class="form-control" id="celularContacto" name="celularContacto" required>
+                </div>
+
+                <h5 class="mt-4 mb-3 text-primary">4.8.2 ESTUDIANTES CON DIFICULTADES EN EL APRENDIZAJE</h5>
+                <label class="form-label">¿Qué Programa de apoyo, orientado a procesos cognitivos, recibe la o el estudiante?</label>
+                <div class="row mb-3">
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Programa_Apoyo" id="lecturaEscritura" value="lectura" />
+                            <label class="form-check-label" for="lecturaEscritura">Lectura y Escritura</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Programa_Apoyo" id="razonamiento" value="razonamiento" />
+                            <label class="form-check-label" for="razonamiento">Razonamiento verbal y lógico</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Programa_Apoyo" id="calculo" value="calculo" />
+                            <label class="form-check-label" for="calculo">Cálculo Matemático</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Programa_Apoyo" id="apoyo" value="apoyo" />
+                            <label class="form-check-label" for="apoyo">Apoyo Técnico Pedagógico</label>
+                        </div>
                     </div>
                 </div>
             </div>
 
-                <h3 class="section-title">IV. ASPECTOS SOCIOECONÓMICOS DE LA O EL ESTUDIANTE</h3>
-            <div class="form-section">
-                <h3 class="section-title">4.1 IDIOMA Y AUTOIDENTIFICACION CULTURAL DE LA O EL ESTUDIANTE</h3>
 
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                        <h5 class="mt-4 mb-3 text-primary">
-                            4.1.1 ¿Cual es el idioma en el que aprendio a hablar en su niñez?</h5>
-                            <input type="text" class="form-control" id="idiomaNinez" name="idiomaNinez" required>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                        <h5 class="mt-4 mb-3 text-primary">
-                            4.1.2 ¿Que idioma(s) habla frecuentemente?</h5>
-                            <div class="row">
-                                <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" id="idiomaFrecuente1" name="idiomaFrecuente1" placeholder="1º" required>
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" id="idiomaFrecuente2" name="idiomaFrecuente2" placeholder="2º">
-                                </div>
-                                <div class="col-md-4 mb-2">
-                                    <input type="text" class="form-control" id="idiomaFrecuente3" name="idiomaFrecuente3" placeholder="3º">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                        <h5 class="mt-4 mb-3 text-primary">
-                            4.1.3 ¿Con cual de las Naciones y Pueblos Indígena Originario Campesinos o Afroboliviano se autoidentifica?</h5>
-                            <div class="col-md-4 mb-2">
-                                <input type="text" class="form-control" id="idenpueblo" name="idenpueblo" placeholder="3º" value="Ninguno">
-                            </div>
-                        </div>
-                    </div>
+            <h3 class="section-title">III. DIRECCIÓN DOMICILIARIA DE LA O EL ESTUDIANTE</h3>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Departamento" class="form-label required-field">Departamento</label>
+                    <select asp-for="Departamento" class="form-select" id="deptoDomicilio">
+                        <option value="">Seleccione...</option>
+                        <option value="LP">La Paz</option>
+                        <option value="CB">Cochabamba</option>
+                        <option value="SC">Santa Cruz</option>
+                        <option value="OR">Oruro</option>
+                        <option value="PT">Potosí</option>
+                        <option value="CH">Chuquisaca</option>
+                        <option value="TJ">Tarija</option>
+                        <option value="BN">Beni</option>
+                        <option value="PD">Pando</option>
+                    </select>
+                    <span asp-validation-for="Departamento" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Provincia" class="form-label required-field">Provincia</label>
+                    <input asp-for="Provincia" class="form-control" id="provDomicilio" />
+                    <span asp-validation-for="Provincia" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Municipio" class="form-label required-field">Municipio</label>
+                    <input asp-for="Municipio" class="form-control" id="municipioDomicilio" />
+                    <span asp-validation-for="Municipio" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-section">
-  
-                    <h3 class="section-title">4.2 SALUD DE LA O EL ESTUDIANTE</h3>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.2.1 ¿Existe algun Centro de Salud/Posta/Hospital en su comunidad/barrio/zona?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="centroSalud" id="centroSaludSi" value="si">
-                                <label class="form-check-label" for="centroSaludSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="centroSalud" id="centroSaludNo" value="no">
-                                <label class="form-check-label" for="centroSaludNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.2.2 El año pasado, por problemas de salud, ¿acudio o se atendió en... (Puede marcar más de una opción)</h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionSUS" name="atencionSalud[]" value="sus">
-                                        <label class="form-check-label" for="atencionSUS">Sistema Único de Salud (SUS)</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionOtraCaja" name="atencionSalud[]" value="otraCaja">
-                                        <label class="form-check-label" for="atencionOtraCaja">Otra caja o seguro de salud</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionPublicos" name="atencionSalud[]" value="publicos">
-                                        <label class="form-check-label" for="atencionPublicos">Establecimientos de salud públicos</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionPrivados" name="atencionSalud[]" value="privados">
-                                        <label class="form-check-label" for="atencionPrivados">Establecimientos de salud privados</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionVivienda" name="atencionSalud[]" value="vivienda">
-                                        <label class="form-check-label" for="atencionVivienda">En su vivienda</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionTradicional" name="atencionSalud[]" value="tradicional">
-                                        <label class="form-check-label" for="atencionTradicional">Medicina Tradicional</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="atencionFarmacia" name="atencionSalud[]" value="farmacia">
-                                        <label class="form-check-label" for="atencionFarmacia">La farmacia sin receta médica (automedicación)</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.2.3 El año pasado, ¿Cuántas veces fue al Centro de Salud?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="vecesCentroSalud" id="veces1a2" value="1a2">
-                                <label class="form-check-label" for="veces1a2">1 a 2 veces</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="vecesCentroSalud" id="veces3a5" value="3a5">
-                                <label class="form-check-label" for="veces3a5">3 a 5 veces</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="vecesCentroSalud" id="veces6omas" value="6omas">
-                                <label class="form-check-label" for="veces6omas">6 o más veces</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="vecesCentroSalud" id="vecesNinguna" value="ninguna">
-                                <label class="form-check-label" for="vecesNinguna">Ninguna</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.2.4 ¿Tiene seguro de salud?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="seguroSalud" id="seguroSaludSi" value="si">
-                                <label class="form-check-label" for="seguroSaludSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="seguroSalud" id="seguroSaludNo" value="no">
-                                <label class="form-check-label" for="seguroSaludNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            <div class="form-section">
-
-                    <h3 class="section-title">4.3 ACCESO DE LA O EL ESTUDIANTE A SERVICIOS BÁSICOS</h3>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.3.1 ¿Tiene acceso a agua por cañería de red?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="aguaRed" id="aguaRedSi" value="si">
-                                <label class="form-check-label" for="aguaRedSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="aguaRed" id="aguaRedNo" value="no">
-                                <label class="form-check-label" for="aguaRedNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.3.2 ¿Tiene baño en su vivienda?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="banoVivienda" id="banoViviendaSi" value="si" required>
-                                <label class="form-check-label" for="banoViviendaSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="banoVivienda" id="banoViviendaNo" value="no" required>
-                                <label class="form-check-label" for="banoViviendaNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.3.3 ¿Tiene red de alcantarillado?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="alcantarillado" id="alcantarilladoSi" value="si">
-                                <label class="form-check-label" for="alcantarilladoSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="alcantarillado" id="alcantarilladoNo" value="no">
-                                <label class="form-check-label" for="alcantarilladoNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.3.4 ¿Usa energía eléctrica para alumbrar su vivienda?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="energiaElectrica" id="energiaElectricaSi" value="si">
-                                <label class="form-check-label" for="energiaElectricaSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="energiaElectrica" id="energiaElectricaNo" value="no">
-                                <label class="form-check-label" for="energiaElectricaNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.3.5 ¿Cuenta con servicio de recojo de basura?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="recojoBasura" id="recojoBasuraSi" value="si">
-                                <label class="form-check-label" for="recojoBasuraSi">Sí</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="recojoBasura" id="recojoBasuraNo" value="no">
-                                <label class="form-check-label" for="recojoBasuraNo">No</label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.3.6 La vivienda que ocupa el hogar es:</h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaPropia" value="propia">
-                                        <label class="form-check-label" for="viviendaPropia">Propia</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaAlquilada" value="alquilada">
-                                        <label class="form-check-label" for="viviendaAlquilada">Alquilada</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaAnticretico" value="anticretico">
-                                        <label class="form-check-label" for="viviendaAnticretico">Anticrético</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaCedida" value="cedida">
-                                        <label class="form-check-label" for="viviendaCedida">Cedida por servicios</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaPrestada" value="prestada">
-                                        <label class="form-check-label" for="viviendaPrestada">Prestada por parientes o amigos</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaContratoMixto" value="contratoMixto">
-                                        <label class="form-check-label" for="viviendaContratoMixto">Contrato Mixto (alquiler y anticrético)</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="tipoVivienda" id="viviendaOtro" value="otro">
-                                        <label class="form-check-label" for="viviendaOtro">Otro (especificar)</label>
-                                        <input type="text" class="form-control mt-1" id="viviendaOtroEspecificar" name="viviendaOtroEspecificar" placeholder="Especifique" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-            </div>
-            
-            <div class="form-section">
-                    <h3 class="section-title">4.4 ACCESO A INTERNET DE LA O EL ESTUDIANTE</h3>
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.4.1 El estudiante accede a internet en: (Puede marcar mas de una opción)</h5>
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="internetVivienda" name="accesoInternet[]" value="vivienda">
-                                        <label class="form-check-label" for="internetVivienda">Su vivienda</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="internetUE" name="accesoInternet[]" value="ue">
-                                        <label class="form-check-label" for="internetUE">La Unidad Educativa</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="internetPublicos" name="accesoInternet[]" value="publicos">
-                                        <label class="form-check-label" for="internetPublicos">Lugares Públicos</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="internetCelular" name="accesoInternet[]" value="celular">
-                                        <label class="form-check-label" for="internetCelular">Teléfono Celular</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="internetNoAccede" name="accesoInternet[]" value="noAccede">
-                                        <label class="form-check-label" for="internetNoAccede">No accede a internet (pase a 4.5)</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="internetOtro" name="accesoInternet[]" value="otro">
-                                        <label class="form-check-label" for="internetOtro">Otro (especificar)</label>
-                                        <input type="text" class="form-control mt-1" id="internetOtroEspecificar" name="internetOtroEspecificar" placeholder="Especifique" disabled>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row mb-3">
-                        <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.4.2 ¿Con que frecuencia usa internet?</h5>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="frecuenciaInternet" id="internetDiario" value="diario">
-                                <label class="form-check-label" for="internetDiario">Diariamente</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="frecuenciaInternet" id="internetSemanalVarias" value="semanalVarias">
-                                <label class="form-check-label" for="internetSemanalVarias">Más de una vez a la semana</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="frecuenciaInternet" id="internetSemanal" value="semanal">
-                                <label class="form-check-label" for="internetSemanal">Una vez a la semana</label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="frecuenciaInternet" id="internetMensual" value="mensual">
-                                <label class="form-check-label" for="internetMensual">Una vez al mes</label>
-                            </div>
-                        </div>
-                    </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Localidad" class="form-label">Localidad / Comunidad</label>
+                    <input asp-for="Localidad" class="form-control" id="localidadDomicilio" />
+                    <span asp-validation-for="Localidad" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Zona" class="form-label">Zona / Barrio</label>
+                    <input asp-for="Zona" class="form-control" id="zonaDomicilio" />
+                    <span asp-validation-for="Zona" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Direccion" class="form-label">Avenida / Calle</label>
+                    <input asp-for="Direccion" class="form-control" id="calleDomicilio" />
+                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-section">
-                        <h3 class="section-title">4.5 ACTIVIDAD LABORAL DE LA O EL ESTUDIANTE</h3>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.5.1 En la pasada gestión ¿El estudiante trabajo?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="trabajoEstudiante" id="trabajoNo" value="no">
-                                    <label class="form-check-label" for="trabajoNo">No (pase a 4.6)</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="trabajoEstudiante" id="trabajoSi" value="si">
-                                    <label class="form-check-label" for="trabajoSi">Sí</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="trabajoEstudiante" id="trabajoNsNr" value="nsnr">
-                                    <label class="form-check-label" for="trabajoNsNr">Ns/Nr (pase a 4.6)</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="mesesTrabajoContainer" style="display: none;">
-                            <div class="col-md-12">
-                                <label class="form-label">Marque los meses que trabajo:</label>
-                                <div class="row">
-                                    <div class="col-md-3 mb-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesEne" name="mesesTrabajo[]" value="ene">
-                                            <label class="form-check-label" for="mesEne">Ene</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesFeb" name="mesesTrabajo[]" value="feb">
-                                            <label class="form-check-label" for="mesFeb">Feb</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesMar" name="mesesTrabajo[]" value="mar">
-                                            <label class="form-check-label" for="mesMar">Mar</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesAbr" name="mesesTrabajo[]" value="abr">
-                                            <label class="form-check-label" for="mesAbr">Abr</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesMay" name="mesesTrabajo[]" value="may">
-                                            <label class="form-check-label" for="mesMay">May</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesJun" name="mesesTrabajo[]" value="jun">
-                                            <label class="form-check-label" for="mesJun">Jun</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesJul" name="mesesTrabajo[]" value="jul">
-                                            <label class="form-check-label" for="mesJul">Jul</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesAgo" name="mesesTrabajo[]" value="ago">
-                                            <label class="form-check-label" for="mesAgo">Ago</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 mb-2">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesSep" name="mesesTrabajo[]" value="sep">
-                                            <label class="form-check-label" for="mesSep">Sep</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesOct" name="mesesTrabajo[]" value="oct">
-                                            <label class="form-check-label" for="mesOct">Oct</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesNov" name="mesesTrabajo[]" value="nov">
-                                            <label class="form-check-label" for="mesNov">Nov</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="mesDic" name="mesesTrabajo[]" value="dic">
-                                            <label class="form-check-label" for="mesDic">Dic</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="actividadTrabajoContainer" style="display: none;">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.5.2 En la pasada gestión ¿En que actividad trabajo el estudiante?</h5>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadAgricultura" name="actividadTrabajo[]" value="agricultura">
-                                            <label class="form-check-label" for="actividadAgricultura">Agricultura</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadGanaderia" name="actividadTrabajo[]" value="ganaderia">
-                                            <label class="form-check-label" for="actividadGanaderia">Ganadería o pesca</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadMineria" name="actividadTrabajo[]" value="mineria">
-                                            <label class="form-check-label" for="actividadMineria">Minería</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadConstruccion" name="actividadTrabajo[]" value="construccion">
-                                            <label class="form-check-label" for="actividadConstruccion">Construcción</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadZafra" name="actividadTrabajo[]" value="zafra">
-                                            <label class="form-check-label" for="actividadZafra">Zafra</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadVendedorDependiente" name="actividadTrabajo[]" value="vendedorDependiente">
-                                            <label class="form-check-label" for="actividadVendedorDependiente">Vendedor dependiente</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadVendedorCuentaPropia" name="actividadTrabajo[]" value="vendedorCuentaPropia">
-                                            <label class="form-check-label" for="actividadVendedorCuentaPropia">Vendedor por cuenta propia</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadTransporte" name="actividadTrabajo[]" value="transporte">
-                                            <label class="form-check-label" for="actividadTransporte">Transporte o mecánica</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadLustrabotas" name="actividadTrabajo[]" value="lustrabotas">
-                                            <label class="form-check-label" for="actividadLustrabotas">Lustrabotas</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadHogar" name="actividadTrabajo[]" value="hogar">
-                                            <label class="form-check-label" for="actividadHogar">Trabajador(a) del hogar o niñera(o)</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadAyudanteFamiliar" name="actividadTrabajo[]" value="ayudanteFamiliar">
-                                            <label class="form-check-label" for="actividadAyudanteFamiliar">Ayudante familiar o comunitario en agricultura o ganadería o pesca</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadAyudanteComercio" name="actividadTrabajo[]" value="ayudanteComercio">
-                                            <label class="form-check-label" for="actividadAyudanteComercio">Ayudante en el hogar en comercio o ventas</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="actividadOtro" name="actividadTrabajo[]" value="otro">
-                                            <label class="form-check-label" for="actividadOtro">Otro trabajo (especifique)</label>
-                                            <input type="text" class="form-control mt-1" id="actividadOtroEspecificar" name="actividadOtroEspecificar" placeholder="Especifique" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="turnosTrabajoContainer" style="display: none;">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.5.3 ¿En qué turnos trabajo el estudiante?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="turnoManana" name="turnosTrabajo[]" value="manana">
-                                    <label class="form-check-label" for="turnoManana">Mañana</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="turnoTarde" name="turnosTrabajo[]" value="tarde">
-                                    <label class="form-check-label" for="turnoTarde">Tarde</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="turnoNoche" name="turnosTrabajo[]" value="noche">
-                                    <label class="form-check-label" for="turnoNoche">Noche</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="frecuenciaTrabajoContainer" style="display: none;">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.5.4 ¿Con qué frecuencia trabajó?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="frecuenciaDiaria" name="frecuenciaTrabajo[]" value="diaria">
-                                    <label class="form-check-label" for="frecuenciaDiaria">Todos los días</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="frecuenciaHabiles" name="frecuenciaTrabajo[]" value="habiles">
-                                    <label class="form-check-label" for="frecuenciaHabiles">Días hábiles</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="frecuenciaFinSemana" name="frecuenciaTrabajo[]" value="finSemana">
-                                    <label class="form-check-label" for="frecuenciaFinSemana">Fines de semana</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="frecuenciaEventual" name="frecuenciaTrabajo[]" value="eventual">
-                                    <label class="form-check-label" for="frecuenciaEventual">Eventual/Esporádico</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="frecuenciaFestivos" name="frecuenciaTrabajo[]" value="festivos">
-                                    <label class="form-check-label" for="frecuenciaFestivos">Días festivos</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="frecuenciaVacaciones" name="frecuenciaTrabajo[]" value="vacaciones">
-                                    <label class="form-check-label" for="frecuenciaVacaciones">En vacaciones</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="pagoTrabajoContainer" style="display: none;">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.5.5 ¿Recibio algún pago?</h5>
-                                    <input class="form-check-input" type="radio" name="pagoTrabajo" id="pagoNo" value="no">
-                                    <label class="form-check-label" for="pagoNo">No</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="pagoTrabajo" id="pagoNsNr" value="nsnr">
-                                    <label class="form-check-label" for="pagoNsNr">Ns/Nr</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="pagoTrabajo" id="pagoSi" value="si">
-                                    <label class="form-check-label" for="pagoSi">Sí</label>
-                                </div>
-                            </div>
-
-                            <div class="col-md-12 mt-2" id="tipoPagoContainer" style="display: none;">
-                                <label class="form-label">¿En especie / Dinero?</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tipoPago" id="pagoEspecie" value="especie">
-                                    <label class="form-check-label" for="pagoEspecie">En especie</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tipoPago" id="pagoDinero" value="dinero">
-                                    <label class="form-check-label" for="pagoDinero">Dinero</label>
-                                </div>
-                            </div>
+            <div class="row mb-3">
+                <div class="col-md-4">
+                    <label asp-for="Nro_Vivienda" class="form-label">Nro. Domicilio</label>
+                    <input asp-for="Nro_Vivienda" class="form-control" id="numeroDomicilio" />
+                    <span asp-validation-for="Nro_Vivienda" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Nro_Telefono" class="form-label">Teléfono fijo</label>
+                    <input asp-for="Nro_Telefono" class="form-control" id="telefonoFijo" />
+                    <span asp-validation-for="Nro_Telefono" class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label asp-for="Nro_Celular" class="form-label required-field">Celular de contacto</label>
+                    <input asp-for="Nro_Celular" class="form-control" id="celularContacto" />
+                    <span asp-validation-for="Nro_Celular" class="text-danger"></span>
+                </div>
             </div>
 
-            <div class="form-section">
-                    <h3 class="section-title">4.6 MEDIO DE TRANSPORTE PARA LLEGAR A LA UNIDAD EDUCATIVA</h3>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.6.1 Generalmente, ¿Como llega el estudiante a la Unidad Educativa?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="medioTransporte" id="transporteAPie" value="aPie">
-                                    <label class="form-check-label" for="transporteAPie">A pie</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="medioTransporte" id="transporteTerrestre" value="terrestre">
-                                    <label class="form-check-label" for="transporteTerrestre">En vehículo de transporte terrestre</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="medioTransporte" id="transporteFluvial" value="fluvial">
-                                    <label class="form-check-label" for="transporteFluvial">Fluvial</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="medioTransporte" id="transporteOtro" value="otro">
-                                    <label class="form-check-label" for="transporteOtro">Otro (especifique)</label>
-                                    <input type="text" class="form-control mt-1" id="transporteOtroEspecificar" name="transporteOtroEspecificar" placeholder="Especifique" disabled>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                            <h5 class="mt-4 mb-3 text-primary">
-                                4.6.2 Segun el medio de transporte señalado, ¿Cuál es el tiempo maximo que demora el estudiante desde su vivienda hasta la Unidad Educativa?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tiempoTransporte" id="tiempoMenosMedia" value="menosMedia">
-                                    <label class="form-check-label" for="tiempoMenosMedia">Menos de media hora</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tiempoTransporte" id="tiempoMediaHora" value="mediaHora">
-                                    <label class="form-check-label" for="tiempoMediaHora">Entre media hora y una hora</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tiempoTransporte" id="tiempoUnaDos" value="unaDos">
-                                    <label class="form-check-label" for="tiempoUnaDos">Entre una a dos horas</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="tiempoTransporte" id="tiempoMasDos" value="masDos">
-                                    <label class="form-check-label" for="tiempoMasDos">Más de dos horas</label>
-                                </div>
-                            </div>
-                        </div>
-             </div>
-
-            <div class="form-section">
-                    <h3 class="section-title">4.7 ABANDONO ESCOLAR CORRESPONDIENTE A LA GESTIÓN ANTERIOR</h3>
-
-                        <div class="row mb-3">
-                            <div class="col-md-12">
-                        <h5 class="mt-4 mb-3 text-primary">4.7.1 ¿El estudiante abandono la Unidad Educativa el año pasado?</h5>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="abandonoEscolar" id="abandonoSi" value="si">
-                                    <label class="form-check-label" for="abandonoSi">Sí</label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="abandonoEscolar" id="abandonoNo" value="no">
-                                    <label class="form-check-label" for="abandonoNo">No (Pase a la Seccion de Padres)</label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row mb-3" id="razonesAbandonoContainer" style="display: none;">
-                            <div class="col-md-12">
-                        <h5 class="mt-4 mb-3 text-primary">4.7.2 ¿Cual o cuales fueron las razones de abandono escolar? (Puede marcar más de una opción)</h5>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonAyudaPadres" name="razonesAbandono[]" value="ayudaPadres">
-                                            <label class="form-check-label" for="razonAyudaPadres">Tuvo que ayudar a sus padres en su trabajo</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonTrabajoRemunerado" name="razonesAbandono[]" value="trabajoRemunerado">
-                                            <label class="form-check-label" for="razonTrabajoRemunerado">Tuvo trabajo remunerado</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonFaltaDinero" name="razonesAbandono[]" value="faltaDinero">
-                                            <label class="form-check-label" for="razonFaltaDinero">Falta de dinero</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonEdad" name="razonesAbandono[]" value="edad">
-                                            <label class="form-check-label" for="razonEdad">Edad temprana (precozidad) / edad tardía (rezago)</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonLejos" name="razonesAbandono[]" value="lejos">
-                                            <label class="form-check-label" for="razonLejos">La Unidad Educativa estaba muy lejos</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonLaboresCasa" name="razonesAbandono[]" value="laboresCasa">
-                                            <label class="form-check-label" for="razonLaboresCasa">Labores de casa/cuidado de miembros del hogar</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonEmbarazo" name="razonesAbandono[]" value="embarazo">
-                                            <label class="form-check-label" for="razonEmbarazo">Embarazo o paternidad</label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonEnfermedad" name="razonesAbandono[]" value="enfermedad">
-                                            <label class="form-check-label" for="razonEnfermedad">Por enfermedad/accidente/discapacidad</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonViaje" name="razonesAbandono[]" value="viaje">
-                                            <label class="form-check-label" for="razonViaje">Viaje o traslado</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonFaltaInteres" name="razonesAbandono[]" value="faltaInteres">
-                                            <label class="form-check-label" for="razonFaltaInteres">Falta de interés</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonViolenciaFisica" name="razonesAbandono[]" value="violenciaFisica">
-                                            <label class="form-check-label" for="razonViolenciaFisica">Violencia física</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonViolenciaPsicologica" name="razonesAbandono[]" value="violenciaPsicologica">
-                                            <label class="form-check-label" for="razonViolenciaPsicologica">Violencia psicológica</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonViolenciaSexual" name="razonesAbandono[]" value="violenciaSexual">
-                                            <label class="form-check-label" for="razonViolenciaSexual">Violencia sexual</label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" id="razonOtro" name="razonesAbandono[]" value="otro">
-                                            <label class="form-check-label" for="razonOtro">Otro (especificar)</label>
-                                            <input type="text" class="form-control mt-1" id="razonOtroEspecificar" name="razonOtroEspecificar" placeholder="Especifique" disabled>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-            </div>
-            <div class="d-flex justify-content-between mb-5">
-                <a class ="btn btn-primary" asp-area="" asp-controller="Home" asp-action="Index">
-                    <i class="fas fa-times me-2"></i>Cancelar
-                </a>
-                <a class="btn btn-primary" asp-area="" asp-controller="Home" asp-action="RudePadres">
+            <div class="d-flex justify-content-end mb-5">
+                <button type="submit" class="btn btn-primary">
                     <i class="fas fa-check me-2"></i>Siguiente
-                </a>
+                </button>
+            </div>
+        </form>
+
+        @* Botón cancelar: elimina estudiante e (si corresponde) padres huérfanos usando Id *@
+        <form asp-controller="Home" asp-action="DeleteEstudiante" method="post" onsubmit="return confirm('Se eliminará el estudiante y los padres huérfanos. ¿Desea continuar?');">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="id" value="@Model?.Id" />
+            <div class="d-flex justify-content-start mb-4">
+                <button type="submit" class="btn btn-danger">Cancelar</button>
             </div>
         </form>
 
@@ -1033,85 +510,36 @@
             // Simular generación de código RUDE
             const randomCode = 'RUDE-' + Math.floor(100000 + Math.random() * 900000);
             document.getElementById('codigoRUDE').value = randomCode;
-
-            document.getElementById('rudeForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                alert('Formulario enviado con éxito. En una implementación real, los datos se enviarían al servidor.');
-            });
         });
-                // JavaScript para mostrar/ocultar campos según selecciones
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mostrar/ocultar meses de trabajo
-            const trabajoSi = document.getElementById('trabajoSi');
-            const trabajoNo = document.getElementById('trabajoNo');
-            const trabajoNsNr = document.getElementById('trabajoNsNr');
-            const mesesTrabajoContainer = document.getElementById('mesesTrabajoContainer');
-            const actividadTrabajoContainer = document.getElementById('actividadTrabajoContainer');
-            const turnosTrabajoContainer = document.getElementById('turnosTrabajoContainer');
-            const frecuenciaTrabajoContainer = document.getElementById('frecuenciaTrabajoContainer');
-            const pagoTrabajoContainer = document.getElementById('pagoTrabajoContainer');
+    </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const si = document.getElementById('discapacidadSi');
+            const no = document.getElementById('discapacidadNo');
+            const container = document.getElementById('discapacidadFields');
 
-            function toggleTrabajoCampos() {
-                if (trabajoSi.checked) {
-                    mesesTrabajoContainer.style.display = 'block';
-                    actividadTrabajoContainer.style.display = 'block';
-                    turnosTrabajoContainer.style.display = 'block';
-                    frecuenciaTrabajoContainer.style.display = 'block';
-                    pagoTrabajoContainer.style.display = 'block';
+            function toggleDiscapacidad() {
+                if (si && si.checked) {
+                    container.style.display = 'block';
                 } else {
-                    mesesTrabajoContainer.style.display = 'none';
-                    actividadTrabajoContainer.style.display = 'none';
-                    turnosTrabajoContainer.style.display = 'none';
-                    frecuenciaTrabajoContainer.style.display = 'none';
-                    pagoTrabajoContainer.style.display = 'none';
+                    container.style.display = 'none';
+                    // opcional: limpiar campos cuando se ocultan
+                    // container.querySelectorAll('select, input').forEach(i => i.value = i.type === 'checkbox' || i.type === 'radio' ? i.checked = false : '');
                 }
             }
 
-            trabajoSi.addEventListener('change', toggleTrabajoCampos);
-            trabajoNo.addEventListener('change', toggleTrabajoCampos);
-            trabajoNsNr.addEventListener('change', toggleTrabajoCampos);
-
-            // Mostrar/ocultar tipo de pago
-            const pagoSi = document.getElementById('pagoSi');
-            const tipoPagoContainer = document.getElementById('tipoPagoContainer');
-
-            pagoSi.addEventListener('change', function() {
-                tipoPagoContainer.style.display = this.checked ? 'block' : 'none';
-            });
-
-                    // Mostrar/ocultar razones de abandono
-        const abandonoSi = document.getElementById('abandonoSi');
-        const abandonoNo = document.getElementById('abandonoNo');
-        const razonesAbandonoContainer = document.getElementById('razonesAbandonoContainer');
-
-        function toggleAbandonoCampos() {
-            if (abandonoSi.checked) {
-                razonesAbandonoContainer.style.display = 'block';
-            } else {
-                razonesAbandonoContainer.style.display = 'none';
-                // Limpiar todos los campos de razones cuando se selecciona "No"
-                document.querySelectorAll('#razonesAbandonoContainer input[type="checkbox"]').forEach(cb => {
-                    cb.checked = false;
-                });
-                // Deshabilitar y limpiar campo "Otro especificar"
-                const razonOtroEspecificar = document.getElementById('razonOtroEspecificar');
-                if (razonOtroEspecificar) {
-                    razonOtroEspecificar.disabled = true;
-                    razonOtroEspecificar.value = '';
-                }
+            if (si && no && container) {
+                si.addEventListener('change', toggleDiscapacidad);
+                no.addEventListener('change', toggleDiscapacidad);
+                // estado inicial
+                toggleDiscapacidad();
             }
-        }
-
-        // Agregar event listeners a ambos botones (Sí y No)
-        abandonoSi.addEventListener('change', toggleAbandonoCampos);
-        abandonoNo.addEventListener('change', toggleAbandonoCampos);
-
-        // Ejecutar al cargar para establecer el estado inicial
-        toggleAbandonoCampos();
         });
     </script>
 </body>
 </html>
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

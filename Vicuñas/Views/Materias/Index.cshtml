@@ -1,41 +1,152 @@
 ﻿@model IEnumerable<Vicuñas.Models.Materia>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Materias";
 }
 
-<h1>Index</h1>
+<style>
+    /* Sticky header */
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+    .header-actions {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+    }
+
+    /* Resaltar fila seleccionada */
+    tr.selected {
+        background-color: rgba(255, 235, 59, 0.15);
+    }
+
+    .table-container {
+        margin-top: .5rem;
+    }
+
+    @@media (max-width: 576px) {
+        .header-actions
+
+    {
+        flex-wrap: wrap;
+    }
+
+    }
+</style>
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Lista de Materias</h1>
+    <div>
+        <a asp-action="Create" class="btn btn-primary">Crear Nueva Materia</a>
+        <a id="btnEditarHeader" class="btn btn-warning" style="display:none;">Editar</a>
+        <a id="btnDetailsHeader" class="btn btn-info" style="display:none;">Detalles</a>
+    </div>
+</div>
+
+<div class="filters-row">
+    @* Formulario GET para filtrar: gradoId, paraleloId, searchName *@
+    <form method="get" asp-action="Index" class="d-flex align-items-center" id="filterForm">
+        <div class="me-2">
+            <label for="GradoId" class="form-label mb-0">Grado</label>
+            @Html.DropDownList("gradoId", (SelectList)ViewData["GradoId"], "Todos", new { @class = "form-control", @id = "GradoId", onchange = "this.form.submit()" })
+        </div>
+
+        <div class="me-2">
+            <label for="ParaleloId" class="form-label mb-0">Paralelo</label>
+            @Html.DropDownList("paraleloId", (SelectList)ViewData["ParaleloId"], "Todos", new { @class = "form-control", @id = "ParaleloId" })
+        </div>
+
+        <div class="me-2">
+            <label class="form-label mb-0">Buscar</label>
+            <div class="input-group">
+                <input type="text" name="searchName" value="@Context.Request.Query["searchName"]" class="form-control" placeholder="Nombre de materia..." />
+                <button type="submit" class="btn btn-secondary">Buscar</button>
+            </div>
+        </div>
+    </form>
+</div>
+<table class="table table-bordered table-striped" id="materiasTable">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCi)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+            <th>@Html.DisplayNameFor(model => model.UsuarioCi)</th>
+            <th>@Html.DisplayNameFor(model => model.Paralelo)</th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCi)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @if (Model == null || !Model.Any())
+        {
+            <tr><td colspan="3">No hay materias para mostrar.</td></tr>
+        }
+        else
+        {
+            foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td>@(item?.Nombre ?? "")</td>
+                    <td>@(item?.UsuarioCi?.ToString() ?? "")</td>
+                    <td>@(item?.Paralelo?.Nombre ?? "") - @(item?.Paralelo?.Grado?.Nombre ?? "")</td>
+                </tr>
+            }
+        }
     </tbody>
 </table>
+
+@section Scripts {
+    <script>
+        (function () {
+            // Si quieres que al cambiar grado se resetee el paralelo seleccionado cuando no corresponde,
+            // ya refrescamos la página por onchange del Grado (backend devuelve paralelos filtrados).
+            // Para mantener UX: nada más aquí si no necesitas comportamiento AJAX.
+
+            // Código de selección fila / mostrar botones en header (igual que en otras vistas)
+            const table = document.getElementById('materiasTable');
+            const btnEditar = document.getElementById('btnEditarHeader');
+            const btnDetails = document.getElementById('btnDetailsHeader');
+            let lastSelectedRow = null;
+
+            const editUrlTemplate = '@Url.Action("Edit", "Materias", new { id = "REPLACE_ID" })';
+            const detailsUrlTemplate = '@Url.Action("Details", "Materias", new { id = "REPLACE_ID" })';
+
+            function showHeaderButtons(id) {
+                if (!id) return;
+                btnEditar.setAttribute('href', editUrlTemplate.replace('REPLACE_ID', id));
+                btnDetails.setAttribute('href', detailsUrlTemplate.replace('REPLACE_ID', id));
+                btnEditar.style.display = 'inline-block';
+                btnDetails.style.display = 'inline-block';
+            }
+
+            function hideHeaderButtons() {
+                btnEditar.style.display = 'none';
+                btnDetails.style.display = 'none';
+            }
+
+            if (table) {
+                table.addEventListener('dblclick', function (e) {
+                    const tr = e.target.closest('tr');
+                    if (!tr) return;
+                    const id = tr.getAttribute('data-id');
+                    if (!id) return;
+
+                    if (lastSelectedRow && lastSelectedRow !== tr) lastSelectedRow.classList.remove('selected');
+
+                    tr.classList.toggle('selected');
+                    lastSelectedRow = tr.classList.contains('selected') ? tr : null;
+
+                    if (tr.classList.contains('selected')) showHeaderButtons(id); else hideHeaderButtons();
+                });
+            }
+
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('#materiasTable')) return;
+                if (e.target.closest('#btnEditarHeader') || e.target.closest('#btnDetailsHeader')) return;
+                if (lastSelectedRow) lastSelectedRow.classList.remove('selected');
+                hideHeaderButtons();
+            });
+        })();
+    </script>
+}

@@ -1,0 +1,218 @@
+﻿@model IEnumerable<dynamic>
+
+@{
+    // ViewData esperados:
+    // ViewData["Title"] = "Título"
+    // ViewData["CreateAction"] = "Create"
+    // ViewData["ControllerName"] = "NombreController"
+    // ViewData["Columns"] = new[] { "Prop1", "Prop2", ... }
+    // ViewData["ColumnNames"] = new[] { "Col 1", "Col 2", ... }
+    // Opcional: ViewData["FilterTypes"] = new Dictionary<string,string> { { "Prop1","text" }, { "Prop2","select" } }
+    // Opcional: ViewData["FilterOptions"] = new Dictionary<string, SelectList> { { "Prop2", (SelectList)ViewData["SomeList"] } }
+    string title = ViewData["Title"]?.ToString() ?? "Lista";
+    string createAction = ViewData["CreateAction"]?.ToString() ?? "Create";
+    string controller = ViewData["ControllerName"]?.ToString() ?? "";
+    var columns = (string[])ViewData["Columns"];
+    var columnNames = (string[])ViewData["ColumnNames"];
+    var filterTypes = ViewData["FilterTypes"] as Dictionary<string, string> ?? new Dictionary<string, string>();
+    var filterOptions = ViewData["FilterOptions"] as Dictionary<string, SelectList> ?? new Dictionary<string, SelectList>();
+}
+
+<style>
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff;
+        padding: .75rem;
+        border-bottom: 1px solid #dee2e6;
+    }
+
+    .header-actions {
+        display: flex;
+        gap: .5rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    tr.selected {
+        background-color: rgba(255,235,59,0.12);
+    }
+
+    .table-container {
+        margin-top: .5rem;
+        padding: .75rem;
+    }
+
+    .filters-row input, .filters-row select {
+        width: 100%;
+        box-sizing: border-box;
+    }
+    @@media (max-width:576px) {
+        .header-actions
+
+    {
+        gap: .35rem;
+    }
+
+    }
+</style>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Apellidos</th>
+            <th>Nombres</th>
+            <th>CI</th>
+            <th>Sexo</th>
+            <th>Teléfono</th>
+            <th>Celular</th>
+            <th>Dirección</th>
+            <th>Paralelo</th>
+            <th></th> <!-- Columna para botones -->
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr ondblclick="mostrarBotones(this)">
+                <td>@item.Apellido_P @item.Apellido_M</td>
+                <td>@item.Nombres</td>
+                <td>@item.CI-@item.Ci_Complemento @item.Ci_Expedido</td>
+                <td>@item.Sexo</td>
+                <td>@item.Nro_Telefono</td>
+                <td>@item.Nro_Celular</td>
+                <td>@item.Direccion</td>
+                <td>@item.Paralelo.Nombre</td>
+                <td class="acciones" style="display:none;">
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="sticky-header d-flex justify-content-between align-items-center">
+    <h1 class="h5 mb-0">@title</h1>
+    <div class="header-actions">
+        <a asp-action="@createAction" class="btn btn-primary">Crear nuevo</a>
+        <a id="btnEdit" class="btn btn-warning" style="display:none;">Editar</a>
+        <a id="btnDetails" class="btn btn-info" style="display:none;">Detalles</a>
+    </div>
+</div>
+
+<div class="table-container">
+    <!-- Formulario de filtros (GET) -->
+    <form method="get" class="form-inline mb-3">
+        @foreach (var col in filterOptions.Keys)
+        {
+            <div class="form-group mr-2">
+                <label class="mr-2">@col:</label>
+                @Html.DropDownList(col, filterOptions[col], "Todos", new { @class = "form-control" })
+            </div>
+        }
+
+        <div class="form-group mr-2">
+            <label for="search" class="mr-2">Buscar:</label>
+            <input type="text" id="search" name="search" value="@(Context.Request.Query["search"])"
+                   class="form-control" />
+        </div>
+
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+
+    <!-- Tabla de datos -->
+    <table class="table table-bordered table-striped" id="indexTable">
+        <thead class="d-none">
+            <tr>
+                @for (int i = 0; i < columnNames.Length; i++)
+                {
+                    <th>@columnNames[i]</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var idProp = item.GetType().GetProperty("Id");
+                var idVal = idProp != null ? idProp.GetValue(item, null) : null;
+                <tr data-id="@idVal">
+                    @foreach (var col in columns)
+                    {
+                        var prop = item.GetType().GetProperty(col);
+                        var value = prop != null ? prop.GetValue(item, null) : null;
+                        <td>@value</td>
+                    }
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+
+        function mostrarBotones(fila) {
+            // Primero ocultamos todos los botones de otras filas
+            document.querySelectorAll('td.acciones').forEach(td => td.style.display = 'none');
+
+            // Luego mostramos los botones de la fila seleccionada
+            fila.querySelector('td.acciones').style.display = 'inline-block';
+        
+        }
+        (function () {
+            const table = document.getElementById('indexTable');
+            const btnEdit = document.getElementById('btnEdit');
+            const btnDetails = document.getElementById('btnDetails');
+            const form = document.getElementById('filtersForm');
+            let lastRow = null;
+
+            const editTemplate = '@Url.Action("Edit", controller, new { id = "REPLACE_ID" })';
+            const detailsTemplate = '@Url.Action("Details", controller, new { id = "REPLACE_ID" })';
+
+            function showButtons(id) {
+                btnEdit.href = editTemplate.replace("REPLACE_ID", id);
+                btnDetails.href = detailsTemplate.replace("REPLACE_ID", id);
+                btnEdit.style.display = 'inline-block';
+                btnDetails.style.display = 'inline-block';
+            }
+            function hideButtons() {
+                btnEdit.style.display = 'none';
+                btnDetails.style.display = 'none';
+            }
+
+            table.addEventListener('dblclick', (e) => {
+                const row = e.target.closest('tr');
+                if (!row) return;
+                const id = row.getAttribute('data-id');
+                if (!id) return;
+
+                if (lastRow && lastRow !== row) lastRow.classList.remove('selected');
+                row.classList.toggle('selected');
+                lastRow = row.classList.contains('selected') ? row : null;
+
+                if (row.classList.contains('selected')) showButtons(id);
+                else hideButtons();
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#indexTable')) return;
+                if (e.target.closest('#btnEdit') || e.target.closest('#btnDetails')) return;
+                if (lastRow) lastRow.classList.remove('selected');
+                lastRow = null;
+                hideButtons();
+            });
+
+            // Búsqueda instantánea en inputs de texto (debounce)
+            const inputs = form.querySelectorAll('input[type="search"]');
+            let timer = null;
+            inputs.forEach(inp => {
+                inp.addEventListener('input', () => {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => { form.submit(); }, 600);
+                });
+            });
+
+        })();
+    </script>
+}

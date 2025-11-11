@@ -1,0 +1,91 @@
+﻿@model Vicuñas.Models.Padre
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Padre</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="CI" class="control-label"></label>
+                <input asp-for="CI" class="form-control" />
+                <span asp-validation-for="CI" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ci_Complemento" class="control-label"></label>
+                <input asp-for="Ci_Complemento" class="form-control" />
+                <span asp-validation-for="Ci_Complemento" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ci_Expedido" class="control-label"></label>
+                <input asp-for="Ci_Expedido" class="form-control" />
+                <span asp-validation-for="Ci_Expedido" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Rol" class="control-label"></label>
+                <select asp-for="Rol" class="form-control"></select>
+                <span asp-validation-for="Rol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tipo_Tutor" class="control-label"></label>
+                <input asp-for="Tipo_Tutor" class="form-control" />
+                <span asp-validation-for="Tipo_Tutor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido_P" class="control-label"></label>
+                <input asp-for="Apellido_P" class="form-control" />
+                <span asp-validation-for="Apellido_P" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Apellido_M" class="control-label"></label>
+                <input asp-for="Apellido_M" class="form-control" />
+                <span asp-validation-for="Apellido_M" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Nombres" class="control-label"></label>
+                <input asp-for="Nombres" class="form-control" />
+                <span asp-validation-for="Nombres" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Idioma1" class="control-label"></label>
+                <input asp-for="Idioma1" class="form-control" />
+                <span asp-validation-for="Idioma1" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Laburo" class="control-label"></label>
+                <input asp-for="Laburo" class="form-control" />
+                <span asp-validation-for="Laburo" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Educacion" class="control-label"></label>
+                <input asp-for="Educacion" class="form-control" />
+                <span asp-validation-for="Educacion" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Contraseña" class="control-label"></label>
+                <input asp-for="Contraseña" class="form-control" />
+                <span asp-validation-for="Contraseña" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Fecha_Nac" class="control-label"></label>
+                <input asp-for="Fecha_Nac" class="form-control" />
+                <span asp-validation-for="Fecha_Nac" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+

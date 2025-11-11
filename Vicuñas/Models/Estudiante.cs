@@ -19,17 +19,17 @@ namespace Vicuñas.Models
         public string? Ci_Expedido { get; set; }
 
         [Required, MinLength(3), MaxLength(20)]
-        public string Apellido_P { get; set; } = string.Empty;
+        public string? Apellido_P { get; set; } 
 
         [Required, MinLength(3), MaxLength(20)]
-        public string Apellido_M { get; set; } = string.Empty;
+        public string? Apellido_M { get; set; }
 
         [Required, MinLength(1), MaxLength(30)]
-        public string Nombres { get; set; } = string.Empty;
+        public string? Nombres { get; set; }
 
         [Required]
-        [RegularExpression("^[MF]$", ErrorMessage = "El sexo debe ser 'M' o 'F'.")]
-        public char Sexo { get; set; }
+        /*[RegularExpression("^[MF]$", ErrorMessage = "El sexo debe ser 'M' o 'F'.")]*/
+        public string? Sexo { get; set; }
         [Required]
         public bool Inscrito { get; set; }
         [Required]
@@ -41,7 +41,7 @@ namespace Vicuñas.Models
         public bool Discapacidad { get; set; }
 
 
-        public int Nro_Discapacidad { get; set; }
+        public string? Nro_Discapacidad { get; set; }
 
         public string? Tipo_Auditiva { get; set; }
 
@@ -113,7 +113,7 @@ namespace Vicuñas.Models
         [Required, MinLength(6), MaxLength(15)]
         public string Nro_Rude { get; set; } = string.Empty;
 
-        public int Stricks { get; set; }
+       public int Strikes { get; set; }
 
         //relacion padre estudiante
         public virtual List<Padre>? Tutores { get; set; }

@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Micontexto.Context;
 using Vicuñas.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Vicuñas.Controllers
 {
+    [Authorize(Roles = "Administrador")]
     public class UsuariosController : Controller
     {
         private readonly ContextoV _context;

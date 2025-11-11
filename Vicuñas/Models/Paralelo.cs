@@ -24,5 +24,7 @@ namespace Vicuñas.Models
         public virtual Usuario? Usuario { get; set; }
         //relacion paralelo estudiante
         public virtual List<Estudiante>? Estudiantes { get; set; }
+        //relacion paralelo materia
+        public virtual List<Materia>? Materias { get; set; }
     }
 }

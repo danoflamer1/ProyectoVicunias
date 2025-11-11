@@ -4,7 +4,7 @@
     ViewData["Title"] = "Details";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
     <h4>Paralelo</h4>
@@ -41,8 +41,67 @@
             @Html.DisplayFor(model => model.Usuario.Nombres) @Html.DisplayFor(model => model.Usuario.Apellido_P) @Html.DisplayFor(model => model.Usuario.Apellido_M)
         </dd>
     </dl>
+    <h3>Estudiantes registrados en este paralelo</h3>
+    @if (ViewBag.Estudiantes != null && ((List<Vicuñas.Models.Estudiante>)ViewBag.Estudiantes).Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>CI</th>
+                    <th>Nombre</th>
+                    <th>Apellido Paterno</th>
+                    <th>Apellido Materno</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var estudiante in (List<Vicuñas.Models.Estudiante>)ViewBag.Estudiantes)
+                {
+                    <tr>
+                        <td>@estudiante.CI</td>
+                        <td>@estudiante.Nombres</td>
+                        <td>@estudiante.Apellido_P</td>
+                        <td>@estudiante.Apellido_M</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No hay estudiantes registrados en este paralelo.</p>
+    }
+    <h3>Materias registradas en </h3>
+    @if (ViewBag.Materias != null && ((List<Vicuñas.Models.Materia>)ViewBag.Materias).Count > 0)
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var materia in (List<Vicuñas.Models.Materia>)ViewBag.Materia)
+                {
+                    <tr>
+                        <td>@materia.Id</td>
+                        <td>@materia.Nombre</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p>No hay estudiantes registrados en este paralelo.</p>
+    }
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Editar</a> |
+    <a asp-action="Index">Volver</a>
+    <p>
+        <a asp-action="ExportarExcel" class="btn btn-success">
+            Exportar lista a Excel
+        </a>
+    </p>
 </div>

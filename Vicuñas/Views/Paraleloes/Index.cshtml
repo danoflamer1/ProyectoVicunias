@@ -1,68 +1,168 @@
 ﻿@model IEnumerable<Vicuñas.Models.Paralelo>
 
 @{
-    ViewData["Title"] = "Index";
+
+    ViewData["Title"] = "Lista de Paralelos";
+
 }
 
-<h1>Index</h1>
+<style>
+    /* Sticky header */
+    .sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: #fff;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<form asp-action="Index" method="get" class="form-inline mb-3">
-    <div class="form-group mr-2">
-        <label for="GradoId" class="mr-2">Grado:</label>
-        @Html.DropDownList("gradoId", (SelectList)ViewData["GradoId"], "Todos", new { @class = "form-control", @id = "GradoId" })
+    .header-actions {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    }
+
+    /* Resaltar fila seleccionada */
+    tr.selected {
+    background-color: rgba(255, 235, 59, 0.15);
+    }
+
+    .table-container {
+    margin-top: .5rem;
+    }
+
+    @@media (max-width: 576px) {
+    .header-actions
+
+    {
+    flex-wrap: wrap;
+    }
+
+    }</style>
+
+<div class="sticky-header p-3 border-bottom d-flex justify-content-between align-items-center">
+    <div>
+        <h1 class="h4 mb-0">Lista de Paralelos</h1>
     </div>
-    <div class="form-group mr-2">
+
+    <div class="header-actions">
+        <!-- Botón Crear siempre visible -->
+        @if (User.IsInRole("Administrador"))
+        {
+            <a asp-action="Create" class="btn btn-primary">Crear Nuevo Paralelo</a>
+
+        }
+        <!-- Botones Edit y Details: inicialmente ocultos -->
+        <a id="btnDetailsHeader" class="btn btn-info" style="display:none;">Detalles</a>
     </div>
-    <button type="submit" class="btn btn-primary">Filtrar</button>
-</form>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Cupo)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Disponibilidad)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Grado)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Usuario)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @(item.Cupo - (item.Estudiantes != null ? item.Estudiantes.Count : 0))
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Disponibilidad)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Grado.Nombre)
-            </td>
-            <td>
-					@Html.DisplayFor(modelItem => item.Usuario.Nombres) @Html.DisplayFor(modelItem => item.Usuario.Apellido_P) @Html.DisplayFor(modelItem => item.Usuario.Apellido_M)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+</div>
+
+<div class="table-container p-3">
+    <form asp-action="Index" method="get" class="form-inline mb-3">
+        <div class="form-group mr-2">
+            <label for="GradoId" class="mr-2">Grado:</label>
+            @Html.DropDownList("gradoId", (SelectList)ViewData["GradoId"], "Todos", new { @class = "form-control", @id = "GradoId" })
+        </div>
+        <button type="submit" class="btn btn-primary">Filtrar</button>
+    </form>
+
+    <table class="table table-bordered table-striped" id="paralelosTable">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Nombre)</th>
+                <th>@Html.DisplayNameFor(model => model.Cupo)</th>
+                <th>@Html.DisplayNameFor(model => model.Disponibilidad)</th>
+                <th>@Html.DisplayNameFor(model => model.Grado)</th>
+                <th>@Html.DisplayNameFor(model => model.Usuario)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
+                    <td>@(item.Cupo - (item.Estudiantes != null ? item.Estudiantes.Count : 0))</td>
+                    <td>@Html.DisplayFor(modelItem => item.Disponibilidad)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Grado.Nombre)</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Usuario.Nombres)
+                        @Html.DisplayFor(modelItem => item.Usuario.Apellido_P)
+                        @Html.DisplayFor(modelItem => item.Usuario.Apellido_M)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const table = document.getElementById('paralelosTable');
+            const btnEditar = document.getElementById('btnEditarHeader');
+            const btnDetails = document.getElementById('btnDetailsHeader');
+            let lastSelectedRow = null;
+            let lastId = null;
+
+            // Plantillas de URL generadas por Razor — usamos REPLACE_ID como placeholder
+            const editUrlTemplate = '@Url.Action("Edit", "Paralelos", new { id = "REPLACE_ID" })';
+            const detailsUrlTemplate = '@Url.Action("Details", "Paralelos", new { id = "REPLACE_ID" })';
+
+            function showHeaderButtons(id) {
+                // Reemplazar placeholder por el id real
+                const editUrl = editUrlTemplate.replace('REPLACE_ID', id);
+                const detailsUrl = detailsUrlTemplate.replace('REPLACE_ID', id);
+
+                btnEditar.setAttribute('href', editUrl);
+                btnDetails.setAttribute('href', detailsUrl);
+
+                btnEditar.style.display = 'inline-block';
+                btnDetails.style.display = 'inline-block';
+            }
+
+            function hideHeaderButtons() {
+                btnEditar.style.display = 'none';
+                btnDetails.style.display = 'none';
+                lastId = null;
+            }
+
+            table.addEventListener('dblclick', function (e) {
+                const tr = e.target.closest('tr');
+                if (!tr) return;
+                const id = tr.getAttribute('data-id');
+                if (!id) return;
+
+                if (lastSelectedRow && lastSelectedRow !== tr) {
+                    lastSelectedRow.classList.remove('selected');
+                }
+
+                // Seleccionar la nueva fila
+                tr.classList.add('selected');
+                lastSelectedRow = tr;
+                lastId = id;
+
+                showHeaderButtons(id);
+            });
+
+            // Si se hace clic fuera de la tabla o en otro lugar que no sean los botones, ocultar selección y botones
+            document.addEventListener('click', function (e) {
+                if (e.target.closest('#paralelosTable')) return;
+                if (e.target.closest('#btnEditarHeader') || e.target.closest('#btnDetailsHeader')) return;
+
+                if (lastSelectedRow) {
+                    lastSelectedRow.classList.remove('selected');
+                    lastSelectedRow = null;
+                }
+                hideHeaderButtons();
+            });
+
+            // Esc -> ocultar
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape') {
+                    if (lastSelectedRow) lastSelectedRow.classList.remove('selected');
+                    lastSelectedRow = null;
+                    hideHeaderButtons();
+                }
+            });
+        })();
+    </script>
 }
-    </tbody>
-</table>

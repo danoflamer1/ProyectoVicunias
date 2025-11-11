@@ -1,65 +1,130 @@
 ﻿@model IEnumerable<Vicuñas.Models.Nota>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Lista de Notas";
 }
 
-<h1>Index</h1>
+<style>
+    /* Header fijo */
+    .sticky-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        background: #fff;
+        padding: 1rem;
+        border-bottom: 1px solid #dee2e6;
+    }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Anio)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Trimestre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Valor)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UsuarioCi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EstudianteCi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Materia)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anio)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Trimestre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Valor)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UsuarioCi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EstudianteCi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Materia.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+    .header-actions {
+        display: flex;
+        gap: 0.5rem;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    /* Resaltar fila seleccionada */
+    tr.selected {
+        background-color: rgba(255, 235, 59, 0.15);
+    }
+
+    .table-container {
+        margin-top: .5rem;
+        padding: 1rem;
+    }
+</style>
+
+<div class="sticky-header d-flex justify-content-between align-items-center">
+    <h1 class="h4 mb-0">Notas</h1>
+
+    <div class="header-actions">
+        <!-- Botón crear -->
+        <a asp-action="Create" class="btn btn-primary">Ingresar Notas</a>
+
+        <!-- Botones dinámicos -->
+        <a id="btnEditarHeader" class="btn btn-warning" style="display:none;">Editar</a>
+        <a id="btnDetailsHeader" class="btn btn-info" style="display:none;">Detalles</a>
+    </div>
+</div>
+
+<div class="table-container">
+    <table class="table table-bordered table-striped" id="notasTable">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Anio)</th>
+                <th>@Html.DisplayNameFor(model => model.Trimestre)</th>
+                <th>@Html.DisplayNameFor(model => model.Valor)</th>
+                <th>@Html.DisplayNameFor(model => model.UsuarioCi)</th>
+                <th>@Html.DisplayNameFor(model => model.EstudianteCi)</th>
+                <th>@Html.DisplayNameFor(model => model.Materia)</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td>@Html.DisplayFor(modelItem => item.Anio)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Trimestre)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Valor)</td>
+                    <td>@Html.DisplayFor(modelItem => item.UsuarioCi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.EstudianteCi)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Materia.Nombre)</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        (function () {
+            const table = document.getElementById('notasTable');
+            const btnEditar = document.getElementById('btnEditarHeader');
+            const btnDetails = document.getElementById('btnDetailsHeader');
+            let lastSelectedRow = null;
+
+            // URLs base
+            const editUrlTemplate = '@Url.Action("Edit", "Notas", new { id = "REPLACE_ID" })';
+            const detailsUrlTemplate = '@Url.Action("Details", "Notas", new { id = "REPLACE_ID" })';
+
+            function showButtons(id) {
+                btnEditar.href = editUrlTemplate.replace("REPLACE_ID", id);
+                btnDetails.href = detailsUrlTemplate.replace("REPLACE_ID", id);
+                btnEditar.style.display = 'inline-block';
+                btnDetails.style.display = 'inline-block';
+            }
+
+            function hideButtons() {
+                btnEditar.style.display = 'none';
+                btnDetails.style.display = 'none';
+            }
+
+            table.addEventListener('dblclick', (e) => {
+                const row = e.target.closest('tr');
+                if (!row) return;
+
+                const id = row.getAttribute('data-id');
+                if (!id) return;
+
+                if (lastSelectedRow && lastSelectedRow !== row) {
+                    lastSelectedRow.classList.remove('selected');
+                }
+
+                row.classList.toggle('selected');
+                lastSelectedRow = row.classList.contains('selected') ? row : null;
+
+                if (row.classList.contains('selected')) {
+                    showButtons(id);
+                } else {
+                    hideButtons();
+                }
+            });
+
+            document.addEventListener('click', (e) => {
+                if (e.target.closest('#notasTable')) return;
+                if (e.target.closest('#btnEditarHeader') || e.target.closest('#btnDetailsHeader')) return;
+                if (lastSelectedRow) lastSelectedRow.classList.remove('selected');
+                hideButtons();
+            });
+        })();
+    </script>
 }
-    </tbody>
-</table>

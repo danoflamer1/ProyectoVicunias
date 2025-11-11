@@ -4,6 +4,7 @@ using Micontexto.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Vicuñas.Migrations
 {
     [DbContext(typeof(ContextoV))]
-    partial class ContextoVModelSnapshot : ModelSnapshot
+    [Migration("20251020164755_Strikes")]
+    partial class Strikes
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,8 +122,8 @@ namespace Vicuñas.Migrations
                     b.Property<int>("Nro_Celular")
                         .HasColumnType("int");
 
-                    b.Property<string>("Nro_Discapacidad")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("Nro_Discapacidad")
+                        .HasColumnType("int");
 
                     b.Property<string>("Nro_Documento_Extranjero")
                         .HasMaxLength(30)
@@ -155,7 +158,7 @@ namespace Vicuñas.Migrations
 
                     b.Property<string>("Sexo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(1)");
 
                     b.Property<int>("Strikes")
                         .HasColumnType("int");
@@ -367,9 +370,6 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParaleloId")
-                        .HasColumnType("int");
-
                     b.Property<int?>("UsuarioCi")
                         .HasColumnType("int");
 
@@ -377,8 +377,6 @@ namespace Vicuñas.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ParaleloId");
 
                     b.HasIndex("UsuarioId");
 
@@ -515,9 +513,6 @@ namespace Vicuñas.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Rol")
-                        .HasColumnType("int");
 
                     b.Property<string>("Tipo_Tutor")
                         .IsRequired()
@@ -687,15 +682,9 @@ namespace Vicuñas.Migrations
 
             modelBuilder.Entity("Vicuñas.Models.Materia", b =>
                 {
-                    b.HasOne("Vicuñas.Models.Paralelo", "Paralelo")
-                        .WithMany("Materias")
-                        .HasForeignKey("ParaleloId");
-
                     b.HasOne("Vicuñas.Models.Usuario", "Usuario")
                         .WithMany("Materias")
                         .HasForeignKey("UsuarioId");
-
-                    b.Navigation("Paralelo");
 
                     b.Navigation("Usuario");
                 });
@@ -789,8 +778,6 @@ namespace Vicuñas.Migrations
                     b.Navigation("Estudiantes");
 
                     b.Navigation("Inscripciones");
-
-                    b.Navigation("Materias");
                 });
 
             modelBuilder.Entity("Vicuñas.Models.Usuario", b =>

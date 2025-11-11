@@ -20,10 +20,55 @@ namespace Vicuñas.Controllers
         }
 
         // GET: Materias
-        public async Task<IActionResult> Index()
+        // using Microsoft.EntityFrameworkCore; // asegúrate de tener este using
+
+        public async Task<IActionResult> Index(int? gradoId, int? paraleloId, string searchName)
         {
-            return View(await _context.Materias.ToListAsync());
+            // Base query incluyendo relaciones necesarias
+            var query = _context.Materias
+                                .Include(m => m.Paralelo)
+                                    .ThenInclude(p => p.Grado)
+                                .AsQueryable();
+
+            // Filtrar por grado (si se selecciona)
+            if (gradoId.HasValue)
+            {
+                // Filtra materias cuyo paralelo pertenece al grado seleccionado
+                query = query.Where(m => m.Paralelo != null && m.Paralelo.GradoId == gradoId.Value);
+            }
+
+            // Filtrar por paralelo (si se selecciona)
+            if (paraleloId.HasValue)
+            {
+                query = query.Where(m => m.ParaleloId == paraleloId.Value);
+            }
+
+            // Filtrar por nombre (opcional)
+            if (!string.IsNullOrWhiteSpace(searchName))
+            {
+                query = query.Where(m => (m.Nombre ?? "").Contains(searchName));
+            }
+
+            // Obtener listas para los dropdowns
+            var gradosList = await _context.Grados.OrderBy(g => g.Numero).ToListAsync();
+
+            // Si se seleccionó grado, limitar paralelos a ese grado; si no, todos.
+            var paralelosQuery = _context.Paralelos.AsQueryable();
+            if (gradoId.HasValue)
+            {
+                paralelosQuery = paralelosQuery.Where(p => p.GradoId == gradoId.Value);
+            }
+            var paralelosList = await paralelosQuery.OrderBy(p => p.Nombre).ToListAsync();
+
+            ViewData["GradoId"] = new SelectList(gradosList, "Id", "Nombre", gradoId);
+            ViewData["ParaleloId"] = new SelectList(paralelosList, "Id", "Nombre", paraleloId);
+
+            var lista = await query.AsNoTracking().ToListAsync();
+            return View(lista);
         }
+
+
+
 
         // GET: Materias/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -34,6 +79,7 @@ namespace Vicuñas.Controllers
             }
 
             var materia = await _context.Materias
+                .Include(m => m.Paralelo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (materia == null)
             {
@@ -46,6 +92,7 @@ namespace Vicuñas.Controllers
         // GET: Materias/Create
         public IActionResult Create()
         {
+            ViewData["ParaleloId"] = new SelectList(_context.Paralelos, "Id", "Nombre");
             return View();
         }
 
@@ -54,7 +101,7 @@ namespace Vicuñas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Nombre,UsuarioCi")] Materia materia)
+        public async Task<IActionResult> Create([Bind("Id,Nombre,UsuarioCi,ParaleloId")] Materia materia)
         {
             if (ModelState.IsValid)
             {
@@ -62,6 +109,7 @@ namespace Vicuñas.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ParaleloId"] = new SelectList(_context.Paralelos, "Id", "Nombre", materia.ParaleloId);
             return View(materia);
         }
 
@@ -78,6 +126,7 @@ namespace Vicuñas.Controllers
             {
                 return NotFound();
             }
+            ViewData["ParaleloId"] = new SelectList(_context.Paralelos, "Id", "Nombre", materia.ParaleloId);
             return View(materia);
         }
 
@@ -86,7 +135,7 @@ namespace Vicuñas.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,UsuarioCi")] Materia materia)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre,UsuarioCi,ParaleloId")] Materia materia)
         {
             if (id != materia.Id)
             {
@@ -113,6 +162,7 @@ namespace Vicuñas.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["ParaleloId"] = new SelectList(_context.Paralelos, "Id", "Nombre", materia.ParaleloId);
             return View(materia);
         }
 
@@ -125,6 +175,7 @@ namespace Vicuñas.Controllers
             }
 
             var materia = await _context.Materias
+                .Include(m => m.Paralelo)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (materia == null)
             {
